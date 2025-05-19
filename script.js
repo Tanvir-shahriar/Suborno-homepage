@@ -160,6 +160,50 @@ function snapToClosest() {
 // Start autoplay and smooth animation loop
 startAutoplay();
 requestAnimationFrame(animateCarousel);
+
+
+// --- Touch events for mobile with smoothness ---
+track.addEventListener('touchstart', (e) => {
+  isDragging = true;
+  clearInterval(autoplayInterval);
+  startX = e.touches[0].pageX;
+  currentOffset = offset;
+  velocity = 0;
+  track.style.transition = 'none';
+  e.preventDefault(); // Prevent page scrolling
+});
+
+window.addEventListener('touchmove', (e) => {
+  if (!isDragging) return;
+  const delta = e.touches[0].pageX - startX;
+  offset = currentOffset - delta;
+  velocity = -delta * 0.15; // Smoother velocity calculation
+  track.style.transform = `translateX(-${offset}px)`;
+  e.preventDefault(); // Prevent page scrolling
+});
+
+window.addEventListener('touchend', () => {
+  if (isDragging) {
+    isDragging = false;
+    isScrolling = true;
+
+    // Smooth scroll to the closest
+    snapToClosest();
+
+    // Start autoplay again
+    startAutoplay();
+  }
+});
+
+// --- Snap to closest card with smooth scrolling ---
+function snapToClosest() {
+  const closestIndex = Math.round(offset / itemWidth);
+  offset = closestIndex * itemWidth;
+
+  track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'; // Smooth scroll
+  track.style.transform = `translateX(-${offset}px)`;
+  updateDots();
+}
         
 
         // Count up animation
