@@ -64,6 +64,7 @@ body {
 .hero-section {
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     color: white; /* optional for contrast */
+    margin-top: 60px;
 }
 .hero-container{
     display: flex;
@@ -95,7 +96,7 @@ body {
 }
 .hero-section img{
     width: 450px;
-    height: 650px;
+    height: 550px;
     object-fit: cover;
 }
 .hero-links{
@@ -592,6 +593,7 @@ body {
 
 /* Responsive styles */
 @media (max-width: 768px) {
+
  
     /* nav bar */
     .navbar {
@@ -641,6 +643,9 @@ body {
     }
 
     /* hero section */
+    /* .hero-section{
+      margin-top: 100px;
+    } */
     .hero-container {
         gap: 0px;
         flex-direction: column-reverse;
