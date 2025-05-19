@@ -146,7 +146,7 @@ function startAutoplay() {
       track.style.transform = `translateX(-${offset}px)`;
       updateDots();
     }
-  }, 2000); // Scroll every 3 seconds
+  }, 5000); // Scroll every 3 seconds
 }
 
 // --- Snap to closest card ---
@@ -162,7 +162,7 @@ startAutoplay();
 requestAnimationFrame(animateCarousel);
 
 
-// --- Touch events for mobile with smoothness ---
+// --- Touch events for mobile with smoother handling ---
 track.addEventListener('touchstart', (e) => {
   isDragging = true;
   clearInterval(autoplayInterval);
@@ -175,22 +175,23 @@ track.addEventListener('touchstart', (e) => {
 
 window.addEventListener('touchmove', (e) => {
   if (!isDragging) return;
-  const delta = e.touches[0].pageX - startX;
+
+  // Adding a damping effect to reduce sensitivity
+  const delta = (e.touches[0].pageX - startX) * 0.5; // 0.5 slows it down
   offset = currentOffset - delta;
-  velocity = -delta * 0.15; // Smoother velocity calculation
+
+  // Limit maximum scroll speed
+  velocity = Math.max(-15, Math.min(15, -delta * 0.1));
+
   track.style.transform = `translateX(-${offset}px)`;
-  e.preventDefault(); // Prevent page scrolling
+  e.preventDefault();
 });
 
 window.addEventListener('touchend', () => {
   if (isDragging) {
     isDragging = false;
     isScrolling = true;
-
-    // Smooth scroll to the closest
     snapToClosest();
-
-    // Start autoplay again
     startAutoplay();
   }
 });

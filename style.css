@@ -1,4 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap');
+
+.tiro-bangla-regular {
+  font-family: "Tiro Bangla", serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.5;
+}
+
+.tiro-bangla-regular-italic {
+  font-family: "Tiro Bangla", serif;
+  font-weight: 400;
+  font-style: italic;
+}
 .inter-font {
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
@@ -172,13 +186,12 @@ body {
     pointer-events: auto;
   }
   
-  /* Carousel Item - much larger size */
-  .carousel-item {
+  /* Carousel Item - larger size */
+.carousel-item {
     flex: 0 0 auto;
-    width: 400px;              /* much larger width */
-    height: 600px;             /* much larger height */
+    width: 400px;              /* fixed width */
+    height: 600px;             /* fixed height */
     margin-right: 20px;
-    
     color: #000000;
     padding: 20px;
     border-radius: 12px;
@@ -188,16 +201,18 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 400px;         /* ensuring larger size */
-  }
-  
-  /* Image - larger */
-  .carousel-item img {
-    width: 300px;              /* larger image */
-    height: 300px;             /* maintain square ratio for image */
-    object-fit: cover;
+    overflow: hidden;          /* hide overflow if image is larger */
+}
+
+/* Image - full size */
+.carousel-item img {
+    width: 100%;               /* full width of the parent */
+    height: 100%;              /* full height of the parent */
+    object-fit: cover;         /* cover the entire space */
     border-radius: 10px;
     margin-bottom: 16px;
-  }
+}
+
   
   /* Title Text */
   .carousel-item .title {
