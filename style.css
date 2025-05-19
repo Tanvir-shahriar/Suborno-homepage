@@ -775,3 +775,219 @@ body {
     
     
 }
+
+/* Tablet Styles (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* Navbar */
+    .navbar {
+        padding: 0 2rem;
+    }
+    
+    /* Hero Section */
+    .hero-container {
+        width: 90%;
+        gap: 30px;
+    }
+    
+    .hero-text .title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-text .description {
+        font-size: 1.1rem;
+    }
+    
+    .hero-section img {
+        width: 350px;
+        height: 450px;
+    }
+    
+    .hero-links {
+        width: 45%;
+    }
+    
+    /* Features Section */
+    .features-text {
+        width: 85%;
+    }
+    
+    .carousel-item {
+        width: 350px;
+        height: 550px;
+    }
+    
+    .carousel-item img {
+        width: 250px;
+        height: 250px;
+    }
+    
+    /* Users Section */
+    .users {
+        width: 90%;
+    }
+    
+    .users-text h1 {
+        font-size: 2.5rem;
+    }
+    
+    /* Community Section */
+    .community-cards {
+        width: 90%;
+        gap: 30px;
+    }
+    
+    /* Events Section */
+    .events-text {
+        width: 85%;
+    }
+    
+    .events-cards {
+        width: 90%;
+    }
+    
+    .events-cards .image-1 {
+        width: 220px;
+        height: 320px;
+    }
+    
+    /* Volunteer Section */
+    .volunteer-container {
+        width: 90%;
+    }
+}
+
+/* Large Desktop Styles (1025px - 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    /* Hero Section */
+    .hero-container {
+        width: 85%;
+    }
+    
+    .hero-text .title {
+        font-size: 2.8rem;
+    }
+    
+    /* Features Section */
+    .carousel-item {
+        width: 380px;
+    }
+    
+    /* Users Section */
+    .users {
+        width: 85%;
+    }
+    
+    /* Community Section */
+    .community-cards {
+        width: 85%;
+    }
+    
+    /* Events Section */
+    .events-text {
+        width: 75%;
+    }
+    
+    .events-cards {
+        width: 85%;
+    }
+    
+    /* Volunteer Section */
+    .volunteer-container {
+        width: 85%;
+    }
+}
+
+/* Extra Large Desktop Styles (1441px and up) */
+@media (min-width: 1441px) {
+    /* Hero Section */
+    .hero-container {
+        max-width: 1400px;
+    }
+    
+    .hero-text .title {
+        font-size: 3.5rem;
+    }
+    
+    .hero-text .description {
+        font-size: 1.3rem;
+    }
+    
+    /* Features Section */
+    .carousel-container {
+        max-width: 1600px;
+    }
+    
+    .carousel-item {
+        width: 450px;
+        height: 650px;
+    }
+    
+    .carousel-item img {
+        width: 350px;
+        height: 350px;
+    }
+    
+    /* Users Section */
+    .users {
+        max-width: 1400px;
+    }
+    
+    /* Community Section */
+    .community-cards {
+        max-width: 1400px;
+        gap: 60px;
+    }
+    
+    /* Events Section */
+    .events-text {
+        max-width: 1200px;
+    }
+    
+    .events-cards {
+        max-width: 1400px;
+    }
+    
+    /* Volunteer Section */
+    .volunteer-container {
+        max-width: 1400px;
+    }
+}
+
+/* Adjustments for landscape tablets */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .hero-container {
+        flex-direction: row;
+    }
+    
+    .hero-container > div {
+        width: 50%;
+    }
+    
+    .users {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .community-cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Adjustments for very small mobile devices (below 400px) */
+@media (max-width: 400px) {
+    .hero-text .title {
+        font-size: 2rem;
+    }
+    
+    .hero-links {
+        width: 70%;
+    }
+    
+    .users-text h1 {
+        font-size: 2.5rem;
+    }
+    
+    .events-cards .image-1 {
+        width: 100%;
+        height: auto;
+    }
+}
