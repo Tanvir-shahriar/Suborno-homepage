@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Page - Suborno App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: 'hsl(250 50% 98%)',
+                        foreground: 'hsl(222.2 84% 4.9%)',
+                        card: 'hsl(0 0% 100%)',
+                        'card-foreground': 'hsl(222.2 84% 4.9%)',
+                        popover: 'hsl(0 0% 100%)',
+                        'popover-foreground': 'hsl(222.2 84% 4.9%)',
+                        primary: 'hsl(210 100% 50%)',
+                        'primary-foreground': 'hsl(0 0% 100%)',
+                        'primary-hover': 'hsl(210 100% 45%)',
+                        secondary: 'hsl(160 60% 45%)',
+                        'secondary-foreground': 'hsl(0 0% 100%)',
+                        'secondary-hover': 'hsl(160 60% 40%)',
+                        muted: 'hsl(210 40% 96.1%)',
+                        'muted-foreground': 'hsl(215.4 16.3% 46.9%)',
+                        accent: 'hsl(45 100% 60%)',
+                        'accent-foreground': 'hsl(222.2 47.4% 11.2%)',
+                        'accent-hover': 'hsl(45 100% 55%)',
+                        destructive: 'hsl(0 84.2% 60.2%)',
+                        'destructive-foreground': 'hsl(210 40% 98%)',
+                        border: 'hsl(214.3 31.8% 91.4%)',
+                        input: 'hsl(214.3 31.8% 91.4%)',
+                        ring: 'hsl(210 100% 50%)'
+                    },
+                    backgroundImage: {
+                        'gradient-primary': 'linear-gradient(135deg, hsl(210 100% 50%), hsl(160 60% 45%))',
+                        'gradient-warm': 'linear-gradient(135deg, hsl(45 100% 60%), hsl(25 95% 65%))',
+                        'gradient-hero': 'linear-gradient(135deg, hsl(250 50% 98%), hsl(210 40% 96%))'
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px hsl(220 13% 91% / 0.3)',
+                        'medium': '0 8px 30px -4px hsl(220 13% 91% / 0.4)',
+                        'strong': '0 16px 40px -8px hsl(220 13% 91% / 0.5)'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out',
+                        'scale-in': 'scaleIn 0.4s ease-out',
+                        'slide-in': 'slideIn 0.8s ease-out'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* CSS from donation.html */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .bg-gradient-primary { background: linear-gradient(135deg, hsl(210 100% 50%), hsl(160 60% 45%)); }
+        .bg-gradient-hero { background: linear-gradient(135deg, hsl(250 50% 98%), hsl(210 40% 96%)); }
+        .bg-clip-text { -webkit-background-clip: text; background-clip: text; }
+        .text-transparent { color: transparent; }
+        .backdrop-blur-sm { backdrop-filter: blur(4px); }
+
+        /* CSS from try.html (Navbar) */
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        .hamburger-active .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger-active .line2 {
+            opacity: 0;
+        }
+        .hamburger-active .line3 {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-6 h-16">
+                <div class="flex-1 flex items-center">
+                    <a href="#" class="flex items-center space-x-2">
+                        <div class="w-40 h-20 flex items-center justify-center">
+                            <a href="/index.html"><img src="/images/Suborno App Logo 3.png" alt="Suborno App Logo"></a>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-5">
+                        <a href="/index.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Home</a>
+                        <a href="/pages/career.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Career</a>
+                        <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Donate</a>
+                        <a href="/pages/services.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Services</a>
+                        <a href="/pages/blog.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Blog</a>
+                        <a href="#footer" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Contact</a>
+                    </div>
+                </div>
+
+                <div class="hidden md:block">
+                    <a href="#" class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200">বাংলা</a>
+                </div>
+                
+                <div class="md:hidden flex items-center space-x-3">
+                    <a href="#" class="bg-blue-600 text-white hover:bg-blue-700 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200">বাংলা</a>
+                    
+                    <button id="mobile-menu-button" class="hamburger-button inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors duration-200">
+                        <span class="sr-only">Open main menu</span>
+                        <div class="hamburger w-6 h-6 flex flex-col justify-center items-center space-y-1">
+                            <span class="hamburger-line line1 block w-5 h-0.5 bg-current"></span>
+                            <span class="hamburger-line line2 block w-5 h-0.5 bg-current"></span>
+                            <span class="hamburger-line line3 block w-5 h-0.5 bg-current"></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
+                <a href="/index.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Home</a>
+                <a href="/pages/career.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Career</a>
+                <a href="/pages/donation.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Donate</a>
+                <a href="/pages/services.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Services</a>
+                <a href="/pages/blog.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Blog</a>
+                <a href="#footer" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <section class="min-h-screen bg-gradient-hero">
+        <div class="container mx-auto px-4 py-16">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8 animate-slide-in">
+                    <div class="text-center lg:text-left">
+                        <h1 class="text-4xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
+                            Make a
+                            <span class="bg-gradient-primary bg-clip-text text-transparent"> Difference</span>
+                        </h1>
+                        <p class="text-xl text-muted-foreground mb-8 leading-relaxed">
+                            Your generous contribution helps create opportunities and build a more inclusive world for people with disabilities.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-6 justify-center lg:justify-start text-center">
+                            <div class="flex items-center gap-2">
+                                <div class="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-2xl font-bold text-foreground">50K+</p>
+                                    <p class="text-sm text-muted-foreground">Lives Impacted</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-2xl font-bold text-foreground">95%</p>
+                                    <p class="text-sm text-muted-foreground">Goal Reached</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-2xl font-bold text-foreground">1K+</p>
+                                    <p class="text-sm text-muted-foreground">Donors</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="relative rounded-2xl overflow-hidden shadow-strong animate-scale-in">
+                        <img 
+                            src="/images/1.png" 
+                            alt="Diverse group of people with disabilities in community activities"
+                            class="w-full h-auto object-cover"
+                        />
+                    </div>
+                </div>
+
+                <div class="animate-fade-in">
+                    <div class="shadow-strong border-0 bg-card/80 backdrop-blur-sm rounded-lg">
+                        <div class="text-center p-6 pb-0">
+                            <h2 class="text-3xl font-bold text-foreground mb-2">
+                                Support Our Mission
+                            </h2>
+                            <p class="text-lg text-muted-foreground">
+                                Choose your donation amount and payment method
+                            </p>
+                        </div>
+                        
+                        <div class="p-6 space-y-6">
+                            <div class="space-y-4">
+                                <label class="text-base font-semibold text-foreground">Select Amount (BDT)</label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button onclick="selectAmount(500)" class="amount-btn h-12 text-base px-4 py-2 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors">
+                                        ৳500
+                                    </button>
+                                    <button onclick="selectAmount(1000)" class="amount-btn h-12 text-base px-4 py-2 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors">
+                                        ৳1,000
+                                    </button>
+                                    <button onclick="selectAmount(2000)" class="amount-btn h-12 text-base px-4 py-2 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors">
+                                        ৳2,000
+                                    </button>
+                                    <button onclick="selectAmount(5000)" class="amount-btn h-12 text-base px-4 py-2 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors">
+                                        ৳5,000
+                                    </button>
+                                </div>
+                                
+                                <div class="space-y-2">
+                                    <label for="custom-amount" class="text-sm text-muted-foreground">
+                                        Or enter custom amount
+                                    </label>
+                                    <div class="relative">
+                                        <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <rect width="20" height="12" x="2" y="6" rx="2"/>
+                                            <circle cx="12" cy="12" r="2"/>
+                                            <path d="m15.5 9.4-1 5.2"/>
+                                        </svg>
+                                        <input
+                                            id="custom-amount"
+                                            type="number"
+                                            placeholder="Enter amount"
+                                            oninput="handleCustomAmount(this.value)"
+                                            class="pl-10 h-12 text-base w-full px-3 py-2 border border-input bg-background rounded-md text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="border-border">
+
+                            <div class="space-y-4">
+                                <label class="text-base font-semibold text-foreground">Payment Method</label>
+                                <div class="space-y-3" id="payment-methods">
+                                    <div class="space-y-2">
+                                        <button onclick="togglePayment('mobile')" class="payment-btn w-full h-14 justify-start text-left px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md transition-colors flex items-center">
+                                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <rect width="14" height="20" x="5" y="2" rx="2" ry="2"/>
+                                                <path d="M12 18h.01"/>
+                                            </svg>
+                                            <div>
+                                                <p class="font-medium">Mobile Banking</p>
+                                                <p class="text-xs text-muted-foreground">bKash, Nagad & more</p>
+                                            </div>
+                                        </button>
+                                        <div id="mobile-options" class="ml-4 grid grid-cols-2 gap-2 hidden">
+                                            <button class="h-10 px-3 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md text-sm transition-colors">bKash</button>
+                                            <button class="h-10 px-3 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md text-sm transition-colors">Nagad</button>
+                                            <button class="h-10 px-3 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md text-sm transition-colors">Rocket</button>
+                                            <button class="h-10 px-3 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md text-sm transition-colors">Upay</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <button onclick="togglePayment('bank')" class="payment-btn w-full h-14 justify-start text-left px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md transition-colors flex items-center">
+                                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/>
+                                                <path d="M3 21v-6h6"/>
+                                            </svg>
+                                            <div>
+                                                <p class="font-medium">Bank Transfer</p>
+                                                <p class="text-xs text-muted-foreground">DBBL, Dutch Bangla & more</p>
+                                            </div>
+                                        </button>
+                                        <div id="bank-options" class="ml-4 grid grid-cols-2 gap-2 hidden">
+                                            <button class="h-10 px-3 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md text-sm transition-colors">DBBL</button>
+                                            <button class="h-10 px-3 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md text-sm transition-colors">Dutch Bangla</button>
+                                            <button class="h-10 px-3 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md text-sm transition-colors">BRAC Bank</button>
+                                            <button class="h-10 px-3 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md text-sm transition-colors">City Bank</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <button onclick="togglePayment('card')" class="payment-btn w-full h-14 justify-start text-left px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md transition-colors flex items-center">
+                                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <rect width="20" height="14" x="2" y="5" rx="2"/>
+                                                <line x1="2" x2="22" y1="10" y2="10"/>
+                                            </svg>
+                                            <div>
+                                                <p class="font-medium">Credit/Debit Card</p>
+                                                <p class="text-xs text-muted-foreground">Visa, Mastercard & more</p>
+                                            </div>
+                                        </button>
+                                        <div id="card-options" class="ml-4 grid grid-cols-2 gap-2 hidden">
+                                            <button class="h-10 px-3 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md text-sm transition-colors">Visa</button>
+                                            <button class="h-10 px-3 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md text-sm transition-colors">Mastercard</button>
+                                            <button class="h-10 px-3 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md text-sm transition-colors">American Express</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <button onclick="togglePayment('wallet')" class="payment-btn w-full h-14 justify-start text-left px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md transition-colors flex items-center">
+                                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
+                                                <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
+                                            </svg>
+                                            <div>
+                                                <p class="font-medium">Digital Wallet</p>
+                                                <p class="text-xs text-muted-foreground">PayPal, Stripe & more</p>
+                                            </div>
+                                        </button>
+                                        <div id="wallet-options" class="ml-4 grid grid-cols-2 gap-2 hidden">
+                                            <button class="h-10 px-3 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md text-sm transition-colors">PayPal</button>
+                                            <button class="h-10 px-3 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md text-sm transition-colors">Stripe</button>
+                                            <button class="h-10 px-3 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md text-sm transition-colors">SSL Commerz</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="border-border">
+
+                            <div class="space-y-4">
+                                <div class="bg-gradient-hero p-4 rounded-lg border border-border">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-muted-foreground">Total Amount:</span>
+                                        <span id="total-amount" class="text-2xl font-bold text-foreground">৳0</span>
+                                    </div>
+                                </div>
+                                
+                                <button 
+                                    id="donate-btn"
+                                    onclick="processDonation()"
+                                    class="w-full h-14 text-lg bg-gradient-primary text-primary-foreground hover:opacity-90 rounded-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                                    disabled
+                                >
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                    </svg>
+                                    Donate Now via SSL Commerz
+                                </button>
+                                
+                                <p class="text-xs text-center text-muted-foreground">
+                                    🔒 Secure payment powered by SSL Commerz. Your donation is safe and encrypted.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile menu toggle functionality
+            class MobileNavigation {
+                constructor() {
+                    this.mobileMenuButton = document.getElementById('mobile-menu-button');
+                    this.mobileMenu = document.getElementById('mobile-menu');
+                    this.hamburger = this.mobileMenuButton.querySelector('.hamburger');
+                    this.isOpen = false;
+                    
+                    this.init();
+                }
+                
+                init() {
+                    this.mobileMenuButton.addEventListener('click', () => {
+                        this.toggleMenu();
+                    });
+                    
+                    const mobileLinks = this.mobileMenu.querySelectorAll('a');
+                    mobileLinks.forEach(link => {
+                        link.addEventListener('click', () => {
+                            this.closeMenu();
+                        });
+                    });
+                    
+                    document.addEventListener('click', (e) => {
+                        if (this.isOpen && !this.mobileMenuButton.contains(e.target) && !this.mobileMenu.contains(e.target)) {
+                            this.closeMenu();
+                        }
+                    });
+                    
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape' && this.isOpen) {
+                            this.closeMenu();
+                        }
+                    });
+                    
+                    window.addEventListener('resize', () => {
+                        if (window.innerWidth >= 768 && this.isOpen) {
+                            this.closeMenu();
+                        }
+                    });
+                }
+                
+                toggleMenu() {
+                    if (this.isOpen) {
+                        this.closeMenu();
+                    } else {
+                        this.openMenu();
+                    }
+                }
+                
+                openMenu() {
+                    this.isOpen = true;
+                    this.mobileMenu.classList.remove('hidden');
+                    this.hamburger.classList.add('hamburger-active');
+                    document.body.style.overflow = 'hidden';
+                    this.mobileMenu.querySelector('a').focus();
+                }
+                
+                closeMenu() {
+                    this.isOpen = false;
+                    this.mobileMenu.classList.add('hidden');
+                    this.hamburger.classList.remove('hamburger-active');
+                    document.body.style.overflow = '';
+                }
+            }
+            
+            // Smooth scrolling for anchor links
+            class SmoothScroll {
+                constructor() {
+                    this.init();
+                }
+                
+                init() {
+                    const links = document.querySelectorAll('a[href^="#"]');
+                    links.forEach(link => {
+                        link.addEventListener('click', (e) => {
+                            const href = link.getAttribute('href');
+                            if (href === '#') return;
+                            
+                            const target = document.querySelector(href);
+                            if (target) {
+                                e.preventDefault();
+                                target.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }
+                        });
+                    });
+                }
+            }
+            
+            new MobileNavigation();
+            new SmoothScroll();
+        });
+    </script>
+    
+    <script>
+        let selectedAmount = null;
+        let customAmount = '';
+        let selectedPayment = null;
+
+        function selectAmount(amount) {
+            selectedAmount = amount;
+            customAmount = '';
+            document.getElementById('custom-amount').value = '';
+            
+            document.querySelectorAll('.amount-btn').forEach(btn => {
+                btn.classList.remove('bg-primary', 'text-primary-foreground');
+                btn.classList.add('bg-background', 'border-input');
+            });
+            
+            event.target.classList.add('bg-primary', 'text-primary-foreground');
+            event.target.classList.remove('bg-background', 'border-input');
+            
+            updateTotal();
+        }
+
+        function handleCustomAmount(value) {
+            customAmount = value;
+            selectedAmount = null;
+            
+            document.querySelectorAll('.amount-btn').forEach(btn => {
+                btn.classList.remove('bg-primary', 'text-primary-foreground');
+                btn.classList.add('bg-background', 'border-input');
+            });
+            
+            updateTotal();
+        }
+
+        function togglePayment(method) {
+            const options = document.getElementById(method + '-options');
+            const isCurrentlySelected = selectedPayment === method;
+            
+            document.querySelectorAll('[id$="-options"]').forEach(opt => {
+                opt.classList.add('hidden');
+            });
+            
+            document.querySelectorAll('.payment-btn').forEach(btn => {
+                btn.classList.remove('bg-accent', 'text-accent-foreground');
+                btn.classList.add('bg-background');
+            });
+            
+            if (isCurrentlySelected) {
+                selectedPayment = null;
+            } else {
+                selectedPayment = method;
+                options.classList.remove('hidden');
+                // Use a more specific selector to avoid ambiguity
+                const clickedButton = event.currentTarget;
+                clickedButton.classList.add('bg-accent', 'text-accent-foreground');
+                clickedButton.classList.remove('bg-background');
+            }
+            
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const finalAmount = selectedAmount || parseFloat(customAmount) || 0;
+            document.getElementById('total-amount').textContent = `৳${finalAmount.toLocaleString()}`;
+            
+            const donateBtn = document.getElementById('donate-btn');
+            if (finalAmount > 0 && selectedPayment) {
+                donateBtn.disabled = false;
+            } else {
+                donateBtn.disabled = true;
+            }
+        }
+
+        function processDonation() {
+            const finalAmount = selectedAmount || parseFloat(customAmount) || 0;
+            if (finalAmount > 0 && selectedPayment) {
+                alert(`Processing donation of ৳${finalAmount.toLocaleString()} via ${selectedPayment} through SSL Commerz...`);
+                // Here you would integrate with SSL Commerz API
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>suborno</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/6e8799c987.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/6e8799c987.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+    <style>
+        /* Hamburger animation */
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger-active .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger-active .line2 {
+            opacity: 0;
+        }
+        
+        .hamburger-active .line3 {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Page content animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(60px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .animate-floatIn-0 {
+            animation: floatIn 0.8s ease-out 0ms forwards;
+        }
+        .animate-floatIn-200 {
+            animation: floatIn 0.8s ease-out 200ms forwards;
+        }
+        .animate-floatIn-400 {
+            animation: floatIn 0.8s ease-out 400ms forwards;
+        }
+
+        /* Service card animations */
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+        @keyframes slideInFromRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        .service-card {
+            opacity: 0; /* Start hidden */
+        }
+
+        .animate-slide-left {
+            animation: slideInFromLeft 0.7s ease-out forwards;
+        }
+        .animate-slide-right {
+            animation: slideInFromRight 0.7s ease-out forwards;
+        }
+
+        /* --- From cards.html --- */
+        /* General Setup & Performance */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* ✨ POLISHED: Animated Gradient Background Spotlight */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: radial-gradient(
+                circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(239, 246, 255, 0.8), /* blue-50 with opacity */
+                rgba(248, 250, 252, 0) 40%
+            );
+            transition: background 0.2s ease-out;
+        }
+
+        /* ✨ FLUIDITY: Enhanced Card & Element Transitions */
+        .service-card {
+            perspective: 1000px; /* Essential for 3D transforms */
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 1; /* Override original opacity for new animation */
+        }
+
+        .card-content, .phone-mockup, .floating-icon, .metric-card {
+             will-change: transform;
+             transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .feature-panel, .gradient-bg {
+             will-change: transform, opacity;
+             transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .tech-badge {
+            transition: all 0.3s ease;
+        }
+
+        /* ✨ POLISHED: Animated Header Gradient */
+        .animated-gradient-text {
+            background-size: 200% auto;
+            animation: gradient-flow 8s ease infinite;
+        }
+
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Hover & Interaction States */
+        .service-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.2), 0 20px 30px -15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-card:hover .gradient-bg {
+            opacity: 1;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric-card:hover {
+            transform: scale(1.08) rotate(-3deg);
+        }
+
+        /* ✨ POLISHED: Enhanced Glassmorphism for Feature Panel */
+        .feature-panel {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px); /* Safari support */
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.6);
+        }
+        .dark .feature-panel { /* Example for dark mode */
+            background: rgba(30, 41, 59, 0.6);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Scroll-triggered Fade-in Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* ✨ SMOOTHER: Refined Staggered Animation for Feature Items */
+        .feature-panel h4, .feature-item {
+            opacity: 0;
+            transform: translateX(25px);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .service-card:hover .feature-panel h4,
+        .service-card:hover .feature-item {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Stagger the animation for the title and items */
+        .service-card:hover .feature-panel h4 { transition-delay: 0.05s; }
+        .service-card:hover .feature-item:nth-child(1) { transition-delay: 0.13s; }
+        .service-card:hover .feature-item:nth-child(2) { transition-delay: 0.21s; }
+        .service-card:hover .feature-item:nth-child(3) { transition-delay: 0.29s; }
+        .service-card:hover .feature-item:nth-child(4) { transition-delay: 0.37s; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-white shadow-lg sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="/index.html" class="flex items-center space-x-2">
+                        <img class="w-32" src="/images/Suborno App Logo 3.png" alt="">
+                    </a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-baseline space-x-5">
+                        <a href="/index.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Home</a>
+                        <a href="career.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Career</a>
+                        <a href="donation.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Donate</a>
+                        <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50 ">Services</a>
+                        <a href="blog.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Blog</a>
+                        <a href="#footer" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Contact</a>
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        <a href="index-bangla.html" class="bg-blue-600 text-white hover:bg-blue-700 px-3 py-1.5 md:px-4 md:py-2 rounded-md text-sm font-medium transition-colors duration-200">বাংলা</a>
+                        <a href="#" class="hidden md:inline-flex items-center bg-green-500 text-white hover:bg-green-600 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"><i class="fa-solid fa-globe mr-2"></i> Try App</a>
+                    </div>
+                    
+                    <div class="md:hidden">
+                        <button id="mobile-menu-button" class="hamburger-button inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors duration-200">
+                            <span class="sr-only">Open main menu</span>
+                            <div class="hamburger w-6 h-6 flex flex-col justify-center items-center space-y-1">
+                                <span class="hamburger-line line1 block w-5 h-0.5 bg-current"></span>
+                                <span class="hamburger-line line2 block w-5 h-0.5 bg-current"></span>
+                                <span class="hamburger-line line3 block w-5 h-0.5 bg-current"></span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
+                <a href="#" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Home</a>
+                <a href="career.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Career</a>
+                <a href="#" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Donate</a>
+                <a href="#" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Services</a>
+                <a href="blog.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Blog</a>
+                <a href="#footer" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="relative min-h-screen bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 overflow-hidden">
+        <div class="absolute inset-0">
+            <div class="absolute top-20 left-20 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-20 right-20 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid lg:grid-cols-2 gap-12 items-center min-h-screen">
+                <div class="text-white space-y-8 opacity-0 animate-fadeIn">
+                    <div class="space-y-6">
+                        <h1 class="text-6xl md:text-7xl font-bold leading-tight">
+                            Suborno Offers
+                            <br />
+                            <span class="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
+                                All in One
+                            </span>
+                            App Solutions
+                        </h1>
+                        <p class="text-xl md:text-2xl text-purple-100 leading-relaxed max-w-lg">
+                            Discover a complete suite of services designed to empower your independence, offering everything from telemedicine and education to career building and legal support, all in one place
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="bg-white text-purple-600 px-8 py-4 rounded-xl font-semibold hover:bg-purple-50 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95">
+                            Get Started
+                        </button>
+                        <button class="border-2 border-white/30 text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transform hover:scale-105 transition-all duration-300 active:scale-95">
+                            User Review
+                        </button>
+                    </div>
+
+                    <div class="flex items-center space-x-8 pt-8">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold">16+</div>
+                            <div class="text-purple-200 text-sm">App Services</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold">100%</div>
+                            <div class="text-purple-200 text-sm">User Satisfaction</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold">24/7</div>
+                            <div class="text-purple-200 text-sm">Support</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:flex justify-center items-center mt-12 lg:mt-0 lg:h-[700px] hidden">
+                    <div class="flex flex-col space-y-8 lg:flex-row lg:space-y-0 lg:space-x-6">
+                        <div class="opacity-0 animate-floatIn-0">
+                            <div class="w-44 h-80 lg:w-52 lg:h-[26rem] bg-gray-900 rounded-[2.5rem] p-2 shadow-2xl hover:shadow-[0_35px_60px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-2 group cursor-pointer relative">
+                                <div class="w-full h-full bg-white rounded-[2rem] overflow-hidden relative">
+                                    <img src="/preview/audiobook.png" alt="">
+                                </div>
+                                <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-24 lg:w-32 h-1 bg-white rounded-full"></div>
+                            </div>
+                        </div>
+
+                        <div class="opacity-0 animate-floatIn-200">
+                           <div class="w-44 h-80 lg:w-52 lg:h-[26rem] bg-gray-900 rounded-[2.5rem] p-2 shadow-2xl hover:shadow-[0_35px_60px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-2 group cursor-pointer relative">
+                                <div class="w-full h-full bg-white rounded-[2rem] overflow-hidden relative">
+                                    <img src="/images/preview1.jpg" alt="">
+                                </div>
+                                <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-24 lg:w-32 h-1 bg-white rounded-full"></div>
+                            </div>
+                        </div>
+
+                        <div class="opacity-0 animate-floatIn-400">
+                           <div class="w-44 h-80 lg:w-52 lg:h-[26rem] bg-gray-900 rounded-[2.5rem] p-2 shadow-2xl hover:shadow-[0_35px_60px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-2 group cursor-pointer relative">
+                                <div class="w-full h-full bg-white rounded-[2rem] overflow-hidden relative">
+                                    <img src="/preview/education.png" alt="">
+                                </div>
+                                <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-24 lg:w-32 h-1 bg-white rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce cursor-pointer">
+            <div class="lg:flex flex-col items-center space-y-2 hidden">
+                <span class="text-sm text-purple-200">Scroll to explore</span>
+                <div class="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+                    <div class="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20 fade-in">
+                <h2 class="text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                    Our Amazing
+                    <span class="animated-gradient-text bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">In-App </span>Services
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Cutting-edge solutions powered by the latest technologies to transform your life.
+                </p>
+            </div>
+    
+            <div class="space-y-12">
+                <div class="service-card group relative overflow-hidden bg-white rounded-3xl shadow-lg p-8 lg:p-12 fade-in">
+                    <div class="gradient-bg absolute inset-0 bg-gradient-to-br from-green-50 to-teal-50 opacity-0"></div>
+                    <div class="card-content relative flex flex-col lg:flex-row items-center gap-12">
+                        <div class="flex-shrink-0">
+                            <div class="relative">
+                                <div class="phone-mockup w-48 h-96 bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl">
+                                    <div class="w-full h-full bg-slate-100 rounded-[2rem] overflow-hidden">
+                                        <img src="/preview/telemedicine.png" alt="telemedecine" class="w-full h-full object-cover" />
+                                    </div>
+                                </div>
+                                <div class="floating-icon absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-br from-green-400 to-teal-500 rounded-3xl flex items-center justify-center shadow-lg shadow-green-500/30">
+                                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-grow text-center lg:text-left space-y-6">
+                            <div>
+                                <h3 class="text-4xl font-bold text-gray-900 mb-4 transition-colors duration-300">Telemedecine</h3>
+                                <p class="text-gray-600 text-lg leading-relaxed">This feature allows users to connect with a diverse range of medical specialists for remote consultations on various health issues. </p>
+                            </div>
+                            <div class="flex flex-wrap justify-center lg:justify-start items-center gap-4 pt-4">
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">General</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Medicine</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Cardiology</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Oncology</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Pediatrics</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Diabetes</div>
+                            </div>
+                            <div class="pt-4">
+                                <div class="metric-card inline-flex items-center gap-4 px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 rounded-2xl text-white shadow-lg shadow-green-500/40">
+                                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                    <div>
+                                        <div class="text-2xl font-bold">98%</div>
+                                        <div class="text-sm opacity-90">Patients Satisfaction</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-panel absolute right-0 top-0 h-full w-full max-w-xs p-8 transform translate-x-full group-hover:translate-x-0">
+                            <h4 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">Key Features</h4>
+                            <div class="space-y-4">
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Wide Variety of Medical Specialists</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Comprehensive Child Health Services</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Dedicated Adult and Chronic Disease Management</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Access to Highly Specialized Fields</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- audiobook card -->
+    
+                <div class="service-card group relative overflow-hidden bg-white rounded-3xl shadow-lg p-8 lg:p-12 fade-in">
+                    <div class="gradient-bg absolute inset-0 bg-gradient-to-br from-indigo-50 to-blue-50 opacity-0"></div>
+                    <div class="card-content relative flex flex-col lg:flex-row-reverse items-center gap-12">
+                        <div class="flex-shrink-0">
+                            <div class="relative">
+                                <div class="phone-mockup w-48 h-96 bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl">
+                                    <div class="w-full h-full bg-slate-100 rounded-[2rem] overflow-hidden">
+                                        <img src="/preview/audiobook.png" />
+                                    </div>
+                                </div>
+                                <div class="floating-icon absolute -top-6 -left-6 w-20 h-20 bg-gradient-to-br from-indigo-400 to-blue-500 rounded-3xl flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                                    <i class="fa-solid fa-headphones"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-grow text-center lg:text-left space-y-6">
+                            <div>
+                                <h3 class="text-4xl font-bold text-gray-900 mb-4">Audiobook</h3>
+                                <p class="text-gray-600 text-lg leading-relaxed">The Audiobook feature offers a free library of audiobooks with diverse topics to promote literacy and learning for visually impaired users and those with reading difficulties.</p>
+                            </div>
+                            <div class="flex flex-wrap justify-center lg:justify-start items-center gap-4 pt-4">
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Novels</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Short Stories</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Self-help</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Entertainment</div>
+                            </div>
+                            <div class="pt-4">
+                                <div class="metric-card inline-flex items-center gap-4 px-6 py-3 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl text-white shadow-lg shadow-indigo-500/40">
+                                    <i class="fa-solid fa-headphones text-xl"></i>
+                                    <div>
+                                        <div class="text-2xl font-bold">100%</div>
+                                        <div class="text-sm opacity-90">Top Picks</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-panel absolute left-0 top-0 h-full w-full max-w-xs p-8 transform -translate-x-full group-hover:translate-x-0">
+                            <h4 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">Key Features</h4>
+                            <div class="space-y-4">
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Free Library Access</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Diverse Content Genres</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Works by Renowned Authors</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Focus on Accessibility</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- education -->
+                
+                <div class="service-card group relative overflow-hidden bg-white rounded-3xl shadow-lg p-8 lg:p-12 fade-in">
+                    <div class="gradient-bg absolute inset-0 bg-gradient-to-br from-pink-50 to-rose-50 opacity-0"></div>
+                    <div class="card-content relative flex flex-col lg:flex-row items-center gap-12">
+                        <div class="flex-shrink-0">
+                            <div class="relative">
+                                <div class="phone-mockup w-48 h-96 bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl">
+                                    <div class="w-full h-full bg-slate-100 rounded-[2rem] overflow-hidden">
+                                        <img src="/preview/education.png" />
+                                    </div>
+                                </div>
+                                <div class="floating-icon absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-br from-pink-400 to-rose-500 rounded-3xl flex items-center justify-center shadow-lg shadow-pink-500/30">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-grow text-center lg:text-left space-y-6">
+                            <div>
+                                <h3 class="text-4xl font-bold text-gray-900 mb-4">Educational Courses</h3>
+                                <p class="text-gray-600 text-lg leading-relaxed">The app provides a wide range of free online courses designed to build user skills, covering everything from introductory computer and Microsoft Office training to specialized instruction in graphic design, video editing, and web development.
+</p>
+                            </div>
+                            <div class="flex flex-wrap justify-center lg:justify-start items-center gap-4 pt-4">
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Computer training</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Microsoft Office</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Video editing</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Web development</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Skill development</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">More</div>
+                            </div>
+                            <div class="pt-4">
+                                <div class="metric-card inline-flex items-center gap-4 px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-600 rounded-2xl text-white shadow-lg shadow-pink-500/40">
+                                    <i class="fa-solid fa-graduation-cap text-xl"></i>
+                                    <div>
+                                        <div class="text-2xl font-bold">100%</div>
+                                        <div class="text-sm opacity-90">Beginner friendly</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-panel absolute right-0 top-0 h-full w-full max-w-xs p-8 transform translate-x-full group-hover:translate-x-0">
+                            <h4 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">Key Features</h4>
+                            <div class="space-y-4">
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Wide Range of Free Courses</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Foundational Digital Skills</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Advanced Creative & Technical Training</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Career and Freelancing Focus</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- career -->
+                <div class="service-card group relative overflow-hidden bg-white rounded-3xl shadow-lg p-8 lg:p-12 fade-in">
+                    <div class="gradient-bg absolute inset-0 bg-gradient-to-br from-purple-50 to-violet-50 opacity-0"></div>
+                    <div class="card-content relative flex flex-col lg:flex-row-reverse items-center gap-12">
+                        <div class="flex-shrink-0">
+                            <div class="relative">
+                                <div class="phone-mockup w-48 h-96 bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl">
+                                    <div class="w-full h-full bg-slate-100 rounded-[2rem] overflow-hidden">
+                                        <img src="/preview/career.png" alt="AI & Machine Learning" class="w-full h-full object-cover" />
+                                    </div>
+                                </div>
+                                <div class="floating-icon absolute -top-6 -left-6 w-20 h-20 bg-gradient-to-br from-purple-400 to-violet-500 rounded-3xl flex items-center justify-center shadow-lg shadow-purple-500/30">
+                                    <i class="fa-solid fa-briefcase"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-grow text-center lg:text-left space-y-6">
+                            <div>
+                                <h3 class="text-4xl font-bold text-gray-900 mb-4">Build Your Career</h3>
+                                <p class="text-gray-600 text-lg leading-relaxed">The Career features empowers users with a comprehensive tool to create a professional CV and a dedicated job board featuring sample circulars with plans to directly connect users with disability-inclusive employers</p>
+                            </div>
+                            <div class="flex flex-wrap justify-center lg:justify-start items-center gap-4 pt-4">
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">CV Builder</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Job circulars</div>
+                                
+                            </div>
+                            <div class="pt-4">
+                                <div class="metric-card inline-flex items-center gap-4 px-6 py-3 bg-gradient-to-r from-purple-500 to-violet-600 rounded-2xl text-white shadow-lg shadow-purple-500/40">
+                                    <i class="fa-solid fa-briefcase text-xl"></i>
+                                    <div>
+                                        <div class="text-2xl font-bold">Latest</div>
+                                        <div class="text-sm opacity-90">Job Opportunity</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-panel absolute left-0 top-0 h-full w-full max-w-xs p-8 transform -translate-x-full group-hover:translate-x-0">
+                            <h4 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">Key Features</h4>
+                            <div class="space-y-4">
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Comprehensive CV Builder</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Dedicated Job Circular Board</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Disability-Inclusive Job Information</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Future Vision for Employer Integration</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- transportation -->
+                <div class="service-card group relative overflow-hidden bg-white rounded-3xl shadow-lg p-8 lg:p-12 fade-in">
+                    <div class="gradient-bg absolute inset-0 bg-gradient-to-br from-orange-50 to-amber-50 opacity-0"></div>
+                    <div class="card-content relative flex flex-col lg:flex-row items-center gap-12">
+                        <div class="flex-shrink-0">
+                            <div class="relative">
+                                <div class="phone-mockup w-48 h-96 bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl">
+                                    <div class="w-full h-full bg-slate-100 rounded-[2rem] overflow-hidden">
+                                        <img src="/preview/transportation.png" alt="Data Analytics" class="w-full h-full object-cover" />
+                                    </div>
+                                </div>
+                                <div class="floating-icon absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-br from-orange-400 to-amber-500 rounded-3xl flex items-center justify-center shadow-lg shadow-orange-500/30">
+                                    <i class="fa-solid fa-van-shuttle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-grow text-center lg:text-left space-y-6">
+                            <div>
+                                <h3 class="text-4xl font-bold text-gray-900 mb-4 transition-colors duration-300">Transportation Support</h3>
+                                <p class="text-gray-600 text-lg leading-relaxed">To enhance user mobility and independence, the Transportation section provides information on accessible options, featuring contacts for free ambulance services and a comprehensive list of apps and companies for renting cars and other vehicles</p>
+                            </div>
+                            <div class="flex flex-wrap justify-center lg:justify-start items-center gap-4 pt-4">
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Car</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Van</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Truck</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Many more</div>
+                            </div>
+                            <div class="pt-4">
+                                <div class="metric-card inline-flex items-center gap-4 px-6 py-3 bg-gradient-to-r from-orange-500 to-amber-600 rounded-2xl text-white shadow-lg shadow-orange-500/40">
+                                    <i class="fa-solid fa-van-shuttle text-xl"></i>
+                                    <div>
+                                        <div class="text-2xl font-bold">100%</div>
+                                        <div class="text-sm opacity-90">Instant Support</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-panel absolute right-0 top-0 h-full w-full max-w-xs p-8 transform translate-x-full group-hover:translate-x-0">
+                            <h4 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">Key Features</h4>
+                            <div class="space-y-4">
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Extensive Car Rental Options</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">App-Based and Direct Rental Choices</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Ambulance Rental Providers</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Truck and Pick up van support</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- mental health support -->
+                <div class="service-card group relative overflow-hidden bg-white rounded-3xl shadow-lg p-8 lg:p-12 fade-in">
+                    <div class="gradient-bg absolute inset-0 bg-gradient-to-br from-purple-50 to-violet-50 opacity-0"></div>
+                    <div class="card-content relative flex flex-col lg:flex-row-reverse items-center gap-12">
+                        <div class="flex-shrink-0">
+                            <div class="relative">
+                                <div class="phone-mockup w-48 h-96 bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl">
+                                    <div class="w-full h-full bg-slate-100 rounded-[2rem] overflow-hidden">
+                                        <img src="/preview/mental health support.png" />
+                                    </div>
+                                </div>
+                                <div class="floating-icon absolute -top-6 -left-6 w-20 h-20 bg-gradient-to-br from-purple-400 to-violet-500 rounded-3xl flex items-center justify-center shadow-lg shadow-purple-500/30">
+                                    <i class="fa-solid fa-hospital-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-grow text-center lg:text-left space-y-6">
+                            <div>
+                                <h3 class="text-4xl font-bold text-gray-900 mb-4">Therapy and Mental health support</h3>
+                                <p class="text-gray-600 text-lg leading-relaxed">To support user well-being, the app provides access to mental health counseling through various government and non-governmental organizations, as well as connections to specialized services like speech, language, and physiotherapy from listed therapists and centers.</p>
+                            </div>
+                            <div class="flex flex-wrap justify-center lg:justify-start items-center gap-4 pt-4">
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Wide range of mental health support</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Speech and language therapy</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Physiotherapy</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">International Organization</div>
+                            </div>
+                            <div class="pt-4">
+                                <div class="metric-card inline-flex items-center gap-4 px-6 py-3 bg-gradient-to-r from-purple-500 to-violet-600 rounded-2xl text-white shadow-lg shadow-purple-500/40">
+                                    <i class="fa-solid fa-hospital-user text-xl"></i>
+                                    <div>
+                                        <div class="text-2xl font-bold">100%</div>
+                                        <div class="text-sm opacity-90">Professional Support</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-panel absolute left-0 top-0 h-full w-full max-w-xs p-8 transform -translate-x-full group-hover:translate-x-0">
+                            <h4 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">Key Features</h4>
+                            <div class="space-y-4">
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Access to Diverse Mental Health Providers</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Connection to Specialized Therapists</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Information on Therapy Centers</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Support from International Organizations</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- games -->
+                <div class="service-card group relative overflow-hidden bg-white rounded-3xl shadow-lg p-8 lg:p-12 fade-in">
+                    <div class="gradient-bg absolute inset-0 bg-gradient-to-br from-red-50 to-orange-50 opacity-0"></div>
+                    <div class="card-content relative flex flex-col lg:flex-row items-center gap-12">
+                        <div class="flex-shrink-0">
+                            <div class="relative">
+                                <div class="phone-mockup w-48 h-96 bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl">
+                                    <div class="w-full h-full bg-slate-100 rounded-[2rem] overflow-hidden">
+                                        <img src="/preview/games.png" alt="Cybersecurity" class="w-full h-full object-cover" />
+                                    </div>
+                                </div>
+                                <div class="floating-icon absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-br from-red-500 to-orange-600 rounded-3xl flex items-center justify-center shadow-lg shadow-red-500/30">
+                                   <i class="fa-solid fa-gamepad"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-grow text-center lg:text-left space-y-6">
+                            <div>
+                                <h3 class="text-4xl font-bold text-gray-900 mb-4">Brain Games</h3>
+                                <p class="text-gray-600 text-lg leading-relaxed">The Brain Games provides users with a variety of simple and engaging activities, including memory matching, word search puzzles, a balloon shooter, trivia quizzes, and puzzle games</p>
+                            </div>
+                            <div class="flex flex-wrap justify-center lg:justify-start items-center gap-4 pt-4">
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Memory</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Puzzle</div>
+                                <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Action</div>
+                            </div>
+                            <div class="pt-4">
+                                <div class="metric-card inline-flex items-center gap-4 px-6 py-3 bg-gradient-to-r from-red-500 to-orange-600 rounded-2xl text-white shadow-lg shadow-red-500/40">
+                                   <i class="fa-solid fa-gamepad text-xl"></i>
+                                    <div>
+                                        <div class="text-2xl font-bold">100%</div>
+                                        <div class="text-sm opacity-90">User Friendly</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-panel absolute right-0 top-0 h-full w-full max-w-xs p-8 transform translate-x-full group-hover:translate-x-0">
+                            <h4 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">Game Features</h4>
+                            <div class="space-y-4">
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Memory Challenge</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Word Puzzles</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Action Game</span></div>
+                                <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Visual Puzzles</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <div id="footer" class="bg-gradient-to-r from-blue-600 to-purple-600 py-16">
+        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                Ready to Get Started?
+            </h2>
+            <p class="text-xl text-blue-100 mb-8">
+                Let's discuss how we can help bring your vision to life
+            </p>
+            <button class="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95">
+                Contact Us Today
+            </button>
+        </div>
+    </div>
+    
+    <a href="#" class="md:hidden fixed bottom-4 right-4 z-50 bg-green-500 text-white font-semibold px-4 py-3 rounded-full shadow-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-transform duration-200 ease-in-out hover:scale-105">
+      <i class="fa-solid fa-globe mr-2"></i> Try App
+    </a>
+    <footer id="footer" class="bg-gray-900 text-gray-400">
+        <div class="container mx-auto px-4 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-12">
+    
+                <div class="md:col-span-3 lg:col-span-2 text-center md:text-left">
+                    <img src="/images/Suborno App Logo 2.png" alt="Suborno App Logo" class="h-12 mx-auto md:mx-0">
+                    <p class="mt-5 text-sm leading-relaxed max-w-md mx-auto md:mx-0">
+                        Creating meaningful change through community-powered action. Our app connects people with local initiatives to amplify social impact.
+                    </p>
+                    <div class="flex justify-center md:justify-start space-x-5 mt-6">
+                        <a href="#" aria-label="Facebook" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="#" aria-label="Instagram" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" aria-label="Twitter" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" aria-label="LinkedIn" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-linkedin-in text-xl"></i></a>
+                    </div>
+                </div>
+    
+                <div class="text-center md:text-left border-t border-gray-800 md:border-t-0 pt-8 md:pt-0">
+                    <button data-toggle-target="#quick-links-panel" class="accordion-toggle flex justify-between items-center w-full">
+                        <h3 class="text-white font-semibold text-lg">Quick Links</h3>
+                        <svg class="w-5 h-5 text-gray-400 transition-transform duration-300 md:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <ul id="quick-links-panel" class="hidden md:block space-y-3 text-sm mt-5">
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">Home</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">Impact Stories</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">Events</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">Contact</a></li>
+                    </ul>
+                </div>
+    
+                <div class="text-center md:text-left border-t border-gray-800 md:border-t-0 pt-8 md:pt-0">
+                     <button data-toggle-target="#contact-panel" class="accordion-toggle flex justify-between items-center w-full">
+                        <h3 class="text-white font-semibold text-lg">Have Questions?</h3>
+                        <svg class="w-5 h-5 text-gray-400 transition-transform duration-300 md:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <ul id="contact-panel" class="hidden md:block space-y-4 text-sm mt-5">
+                        <li class="flex items-center justify-center md:justify-start">
+                            <i class="fa-solid fa-envelope mr-3 w-4 text-center"></i>
+                            <a href="mailto:contact@suborno.com.bd" class="hover:text-white transition-colors duration-200">contact@suborno.com.bd</a>
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start">
+                            <i class="fa-solid fa-phone mr-3 w-4 text-center"></i>
+                            <a href="tel:+8801732634499" class="hover:text-white transition-colors duration-200">+880 1732-634499</a>
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start">
+                            <i class="fa-solid fa-location-dot mr-3 w-4 text-center"></i>
+                            <span>Joar Sahara, Narda, Dhaka</span>
+                        </li>
+                    </ul>
+                </div>
+    
+            </div>
+    
+            <div class="mt-16 border-t border-gray-800 pt-8 flex flex-col items-center gap-y-4 md:flex-row md:justify-between text-sm">
+                <p>&copy; 2025 Suborno. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-white transition-colors duration-200">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors duration-200">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div id="share-modal" class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl p-8 max-w-sm w-full mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold">Share this story</h3>
+                <button id="close-modal-btn" class="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+            </div>
+            <div class="grid grid-cols-2 gap-4 text-center">
+                <a id="share-facebook" href="#" target="_blank" class="p-4 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <i class="fab fa-facebook-f text-3xl text-blue-600"></i>
+                    <p class="mt-2 text-sm">Facebook</p>
+                </a>
+                <a id="share-twitter" href="#" target="_blank" class="p-4 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <i class="fab fa-twitter text-3xl text-sky-500"></i>
+                    <p class="mt-2 text-sm">Twitter</p>
+                </a>
+                <a id="share-linkedin" href="#" target="_blank" class="p-4 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <i class="fab fa-linkedin-in text-3xl text-blue-700"></i>
+                    <p class="mt-2 text-sm">LinkedIn</p>
+                </a>
+                <a id="share-whatsapp" href="#" target="_blank" class="p-4 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <i class="fab fa-whatsapp text-3xl text-green-500"></i>
+                    <p class="mt-2 text-sm">WhatsApp</p>
+                </a>
+            </div>
+            <div class="mt-6">
+                <p class="text-sm text-gray-600 mb-2">Or copy link</p>
+                <div class="flex items-center border rounded-lg p-2 bg-gray-50">
+                    <input id="copy-link-input" type="text" readonly class="flex-grow bg-transparent text-sm text-gray-700 focus:outline-none">
+                    <button id="copy-link-btn" class="bg-blue-600 text-white px-4 py-1 rounded text-sm font-semibold hover:bg-blue-700">Copy</button>
+                </div>
+                <p id="copy-success-msg" class="text-green-600 text-xs mt-2 hidden">Link copied to clipboard!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Original Scripts ---
+            new MobileNavigation();
+            new SmoothScroll();
+            // The old ScrollAnimator is replaced by the new IntersectionObserver below
+            new FooterAccordion();
+
+            // --- Integrated Scripts from cards.html ---
+            // Intersection Observer for fade-in animations on cards
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+            // Mouse-tracking background spotlight
+            const body = document.body;
+            window.addEventListener('mousemove', (e) => {
+                requestAnimationFrame(() => {
+                    body.style.setProperty('--mouse-x', `${e.clientX}px`);
+                    body.style.setProperty('--mouse-y', `${e.clientY}px`);
+                });
+            }, { passive: true });
+
+            // 3D Tilt Effect for Service Cards
+            const cards = document.querySelectorAll('.service-card');
+            cards.forEach(card => {
+                const cardContent = card.querySelector('.card-content');
+                const phone = card.querySelector('.phone-mockup');
+                const icon = card.querySelector('.floating-icon');
+
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = (y - centerY) / centerY * -6;
+                    const rotateY = (x - centerX) / centerX * 6;
+
+                    requestAnimationFrame(() => {
+                        if (cardContent) cardContent.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                        if (phone) phone.style.transform = `translateZ(40px)`;
+                        if (icon) icon.style.transform = `translateZ(60px) rotate(${rotateY}deg)`;
+                    });
+                });
+
+                card.addEventListener('mouseleave', () => {
+                     requestAnimationFrame(() => {
+                        if (cardContent) cardContent.style.transform = 'rotateX(0) rotateY(0)';
+                        if (phone) phone.style.transform = 'translateZ(0)';
+                        if (icon) icon.style.transform = 'translateZ(0)';
+                    });
+                });
+            });
+        });
+        
+        // --- Original Class Definitions ---
+        class MobileNavigation {
+            constructor() {
+                this.mobileMenuButton = document.getElementById('mobile-menu-button');
+                this.mobileMenu = document.getElementById('mobile-menu');
+                this.hamburger = this.mobileMenuButton.querySelector('.hamburger');
+                this.isOpen = false;
+                
+                this.init();
+            }
+            
+            init() {
+                this.mobileMenuButton.addEventListener('click', () => {
+                    this.toggleMenu();
+                });
+                
+                const mobileLinks = this.mobileMenu.querySelectorAll('a');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        this.closeMenu();
+                    });
+                });
+                
+                document.addEventListener('click', (e) => {
+                    if (this.isOpen && !this.mobileMenuButton.contains(e.target) && !this.mobileMenu.contains(e.target)) {
+                        this.closeMenu();
+                    }
+                });
+                
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.isOpen) {
+                        this.closeMenu();
+                    }
+                });
+                
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth >= 768 && this.isOpen) {
+                        this.closeMenu();
+                    }
+                });
+            }
+            
+            toggleMenu() {
+                if (this.isOpen) {
+                    this.closeMenu();
+                } else {
+                    this.openMenu();
+                }
+            }
+            
+            openMenu() {
+                this.isOpen = true;
+                this.mobileMenu.classList.remove('hidden');
+                this.hamburger.classList.add('hamburger-active');
+                document.body.style.overflow = 'hidden';
+                this.mobileMenu.querySelector('a').focus();
+            }
+            
+            closeMenu() {
+                this.isOpen = false;
+                this.mobileMenu.classList.add('hidden');
+                this.hamburger.classList.remove('hamburger-active');
+                document.body.style.overflow = '';
+            }
+        }
+        
+        class SmoothScroll {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                const links = document.querySelectorAll('a[href^="#"]');
+                links.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        const href = link.getAttribute('href');
+                        if (href === '#') return;
+                        
+                        const target = document.querySelector(href);
+                        if (target) {
+                            e.preventDefault();
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    });
+                });
+            }
+        }
+
+        class FooterAccordion {
+            constructor() {
+                this.accordionToggles = document.querySelectorAll('.accordion-toggle');
+                this.init();
+            }
+            init() {
+                if (!this.accordionToggles.length) return;
+                this.accordionToggles.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const targetPanelId = button.getAttribute('data-toggle-target');
+                        const targetPanel = document.querySelector(targetPanelId);
+                        const icon = button.querySelector('svg');
+
+                        if (targetPanel) {
+                            targetPanel.classList.toggle('hidden');
+                            if (icon) {
+                                icon.classList.toggle('rotate-180');
+                            }
+                        }
+                    });
+                });
+            }
+        }
+    </script>
+</body>
+</html>

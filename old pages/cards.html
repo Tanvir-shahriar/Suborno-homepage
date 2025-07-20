@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluid Services Showcase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* General Setup & Performance */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* ✨ POLISHED: Animated Gradient Background Spotlight */
+        body {
+            background-color: #f8fafc; /* Fallback for older browsers */
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: radial-gradient(
+                circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(239, 246, 255, 0.8), /* blue-50 with opacity */
+                rgba(248, 250, 252, 0) 40%
+            );
+            transition: background 0.2s ease-out;
+        }
+
+        /* ✨ FLUIDITY: Enhanced Card & Element Transitions */
+        .service-card {
+            perspective: 1000px; /* Essential for 3D transforms */
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .card-content, .phone-mockup, .floating-icon, .metric-card {
+             will-change: transform;
+             transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .feature-panel, .gradient-bg {
+             will-change: transform, opacity;
+             transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .tech-badge {
+            transition: all 0.3s ease;
+        }
+
+        /* ✨ POLISHED: Animated Header Gradient */
+        .animated-gradient-text {
+            background-size: 200% auto;
+            animation: gradient-flow 8s ease infinite;
+        }
+
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Hover & Interaction States */
+        .service-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.2), 0 20px 30px -15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-card:hover .gradient-bg {
+            opacity: 1;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric-card:hover {
+            transform: scale(1.08) rotate(-3deg);
+        }
+
+        /* ✨ POLISHED: Enhanced Glassmorphism for Feature Panel */
+        .feature-panel {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px); /* Safari support */
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.6);
+        }
+        .dark .feature-panel { /* Example for dark mode */
+            background: rgba(30, 41, 59, 0.6);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Scroll-triggered Fade-in Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* ✨ SMOOTHER: Refined Staggered Animation for Feature Items */
+        .feature-item {
+            opacity: 0;
+            transform: translateX(25px);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .service-card:hover .feature-item:nth-child(1) { transition-delay: 0.08s; }
+        .service-card:hover .feature-item:nth-child(2) { transition-delay: 0.16s; }
+        .service-card:hover .feature-item:nth-child(3) { transition-delay: 0.24s; }
+        .service-card:hover .feature-item:nth-child(4) { transition-delay: 0.32s; }
+
+        .service-card:hover .feature-item {
+             opacity: 1;
+             transform: translateX(0);
+        }
+
+        /* Ripple Effect for Buttons */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen py-20 px-4">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-20 fade-in">
+            <h2 class="text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                Our Amazing
+                <span class="animated-gradient-text bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Services</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Cutting-edge solutions powered by the latest technologies to transform your digital presence.
+            </p>
+        </div>
+
+        <div class="space-y-12">
+            <div class="service-card group relative overflow-hidden bg-white rounded-3xl shadow-lg p-8 lg:p-12 fade-in">
+                <div class="gradient-bg absolute inset-0 bg-gradient-to-br from-green-50 to-teal-50 opacity-0"></div>
+                <div class="card-content relative flex flex-col lg:flex-row items-center gap-12">
+                    <div class="flex-shrink-0">
+                        <div class="relative">
+                            <div class="phone-mockup w-48 h-96 bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl">
+                                <div class="w-full h-full bg-slate-100 rounded-[2rem] overflow-hidden">
+                                    <img src="https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Mobile App Development" class="w-full h-full object-cover" />
+                                </div>
+                            </div>
+                            <div class="floating-icon absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-br from-green-400 to-teal-500 rounded-3xl flex items-center justify-center shadow-lg shadow-green-500/30">
+                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow text-center lg:text-left space-y-6">
+                        <div>
+                            <h3 class="text-4xl font-bold text-gray-900 mb-4 transition-colors duration-300">Mobile App Development</h3>
+                            <p class="text-gray-600 text-lg leading-relaxed">Native and cross-platform mobile apps that deliver seamless experiences across iOS and Android.</p>
+                        </div>
+                        <div class="flex flex-wrap justify-center lg:justify-start items-center gap-4 pt-4">
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">React Native</div>
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Flutter</div>
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">iOS/Android</div>
+                        </div>
+                        <div class="pt-4">
+                            <div class="metric-card inline-flex items-center gap-4 px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 rounded-2xl text-white shadow-lg shadow-green-500/40">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                <div>
+                                    <div class="text-2xl font-bold">98%</div>
+                                    <div class="text-sm opacity-90">Client Satisfaction</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-panel absolute right-0 top-0 h-full w-full max-w-xs p-8 transform translate-x-full group-hover:translate-x-0">
+                        <h4 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">Key Features</h4>
+                        <div class="space-y-4">
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Cross-platform compatibility</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">App Store optimization</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Push notifications</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Offline functionality</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card group relative overflow-hidden bg-white rounded-3xl shadow-lg p-8 lg:p-12 fade-in">
+                <div class="gradient-bg absolute inset-0 bg-gradient-to-br from-indigo-50 to-blue-50 opacity-0"></div>
+                <div class="card-content relative flex flex-col lg:flex-row-reverse items-center gap-12">
+                    <div class="flex-shrink-0">
+                        <div class="relative">
+                            <div class="phone-mockup w-48 h-96 bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl">
+                                <div class="w-full h-full bg-slate-100 rounded-[2rem] overflow-hidden">
+                                    <img src="https://images.pexels.com/photos/2004161/pexels-photo-2004161.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Cloud Solutions" class="w-full h-full object-cover" />
+                                </div>
+                            </div>
+                            <div class="floating-icon absolute -top-6 -left-6 w-20 h-20 bg-gradient-to-br from-indigo-400 to-blue-500 rounded-3xl flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow text-center lg:text-left space-y-6">
+                        <div>
+                            <h3 class="text-4xl font-bold text-gray-900 mb-4">Cloud Solutions</h3>
+                            <p class="text-gray-600 text-lg leading-relaxed">Scalable cloud infrastructure and deployment solutions that grow with your business and ensure reliability.</p>
+                        </div>
+                        <div class="flex flex-wrap justify-center lg:justify-start items-center gap-4 pt-4">
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">AWS/Azure</div>
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Docker</div>
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Kubernetes</div>
+                        </div>
+                        <div class="pt-4">
+                            <div class="metric-card inline-flex items-center gap-4 px-6 py-3 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl text-white shadow-lg shadow-indigo-500/40">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                <div>
+                                    <div class="text-2xl font-bold">99.9%</div>
+                                    <div class="text-sm opacity-90">Uptime Guarantee</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-panel absolute left-0 top-0 h-full w-full max-w-xs p-8 transform -translate-x-full group-hover:translate-x-0">
+                        <h4 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">Key Features</h4>
+                        <div class="space-y-4">
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Auto-scaling infrastructure</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">99.9% uptime guarantee</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Cost optimization</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">24/7 monitoring</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card group relative overflow-hidden bg-white rounded-3xl shadow-lg p-8 lg:p-12 fade-in">
+                <div class="gradient-bg absolute inset-0 bg-gradient-to-br from-pink-50 to-rose-50 opacity-0"></div>
+                <div class="card-content relative flex flex-col lg:flex-row items-center gap-12">
+                    <div class="flex-shrink-0">
+                        <div class="relative">
+                            <div class="phone-mockup w-48 h-96 bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl">
+                                <div class="w-full h-full bg-slate-100 rounded-[2rem] overflow-hidden">
+                                    <img src="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=400" alt="UI/UX Design" class="w-full h-full object-cover" />
+                                </div>
+                            </div>
+                            <div class="floating-icon absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-br from-pink-400 to-rose-500 rounded-3xl flex items-center justify-center shadow-lg shadow-pink-500/30">
+                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow text-center lg:text-left space-y-6">
+                        <div>
+                            <h3 class="text-4xl font-bold text-gray-900 mb-4">UI/UX Design</h3>
+                            <p class="text-gray-600 text-lg leading-relaxed">Beautiful and intuitive designs that create engaging user experiences and drive conversions.</p>
+                        </div>
+                        <div class="flex flex-wrap justify-center lg:justify-start items-center gap-4 pt-4">
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Figma</div>
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Adobe XD</div>
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Prototyping</div>
+                        </div>
+                        <div class="pt-4">
+                            <div class="metric-card inline-flex items-center gap-4 px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-600 rounded-2xl text-white shadow-lg shadow-pink-500/40">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path></svg>
+                                <div>
+                                    <div class="text-2xl font-bold">85%</div>
+                                    <div class="text-sm opacity-90">Conversion Increase</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-panel absolute right-0 top-0 h-full w-full max-w-xs p-8 transform translate-x-full group-hover:translate-x-0">
+                        <h4 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">Key Features</h4>
+                        <div class="space-y-4">
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">User research & testing</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Responsive design</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Design systems</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Conversion optimization</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card group relative overflow-hidden bg-white rounded-3xl shadow-lg p-8 lg:p-12 fade-in">
+                <div class="gradient-bg absolute inset-0 bg-gradient-to-br from-orange-50 to-amber-50 opacity-0"></div>
+                <div class="card-content relative flex flex-col lg:flex-row items-center gap-12">
+                    <div class="flex-shrink-0">
+                        <div class="relative">
+                            <div class="phone-mockup w-48 h-96 bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl">
+                                <div class="w-full h-full bg-slate-100 rounded-[2rem] overflow-hidden">
+                                    <img src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Data Analytics" class="w-full h-full object-cover" />
+                                </div>
+                            </div>
+                            <div class="floating-icon absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-br from-orange-400 to-amber-500 rounded-3xl flex items-center justify-center shadow-lg shadow-orange-500/30">
+                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow text-center lg:text-left space-y-6">
+                        <div>
+                            <h3 class="text-4xl font-bold text-gray-900 mb-4 transition-colors duration-300">Data Analytics</h3>
+                            <p class="text-gray-600 text-lg leading-relaxed">Unlock powerful insights from your data with our advanced analytics solutions and interactive dashboards.</p>
+                        </div>
+                        <div class="flex flex-wrap justify-center lg:justify-start items-center gap-4 pt-4">
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Tableau</div>
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Power BI</div>
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">SQL</div>
+                        </div>
+                        <div class="pt-4">
+                            <div class="metric-card inline-flex items-center gap-4 px-6 py-3 bg-gradient-to-r from-orange-500 to-amber-600 rounded-2xl text-white shadow-lg shadow-orange-500/40">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                <div>
+                                    <div class="text-2xl font-bold">40%</div>
+                                    <div class="text-sm opacity-90">Boost in Efficiency</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-panel absolute right-0 top-0 h-full w-full max-w-xs p-8 transform translate-x-full group-hover:translate-x-0">
+                        <h4 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">Key Features</h4>
+                        <div class="space-y-4">
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Predictive Modeling</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Data Visualization</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">BI Dashboards</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">ETL Pipelines</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card group relative overflow-hidden bg-white rounded-3xl shadow-lg p-8 lg:p-12 fade-in">
+                <div class="gradient-bg absolute inset-0 bg-gradient-to-br from-purple-50 to-violet-50 opacity-0"></div>
+                <div class="card-content relative flex flex-col lg:flex-row-reverse items-center gap-12">
+                    <div class="flex-shrink-0">
+                        <div class="relative">
+                            <div class="phone-mockup w-48 h-96 bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl">
+                                <div class="w-full h-full bg-slate-100 rounded-[2rem] overflow-hidden">
+                                    <img src="https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=400" alt="AI & Machine Learning" class="w-full h-full object-cover" />
+                                </div>
+                            </div>
+                            <div class="floating-icon absolute -top-6 -left-6 w-20 h-20 bg-gradient-to-br from-purple-400 to-violet-500 rounded-3xl flex items-center justify-center shadow-lg shadow-purple-500/30">
+                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M8.25 21v-1.5M4.5 15.75H3m18 0h-1.5M12 18.75v-1.5m-6.75-3.75h1.5m11.5 0h1.5m-8.5-3.75v1.5m-1.5-1.5h1.5m3.75 1.5v-1.5m3.75 3.75v-1.5m-1.5-3.75h1.5m-3.75-1.5v-1.5M12 3.75v1.5m-4.5 3.75H9m6 0h1.5m-4.5 3.75H9m6 0h1.5m-4.5 3.75h1.5m-1.5 1.5v-1.5m3.75 1.5v-1.5" /></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow text-center lg:text-left space-y-6">
+                        <div>
+                            <h3 class="text-4xl font-bold text-gray-900 mb-4">AI & Machine Learning</h3>
+                            <p class="text-gray-600 text-lg leading-relaxed">Leverage artificial intelligence to automate processes, predict trends, and create intelligent products.</p>
+                        </div>
+                        <div class="flex flex-wrap justify-center lg:justify-start items-center gap-4 pt-4">
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">TensorFlow</div>
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">PyTorch</div>
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Scikit-learn</div>
+                        </div>
+                        <div class="pt-4">
+                            <div class="metric-card inline-flex items-center gap-4 px-6 py-3 bg-gradient-to-r from-purple-500 to-violet-600 rounded-2xl text-white shadow-lg shadow-purple-500/40">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                <div>
+                                    <div class="text-2xl font-bold">3x Faster</div>
+                                    <div class="text-sm opacity-90">Decision Making</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-panel absolute left-0 top-0 h-full w-full max-w-xs p-8 transform -translate-x-full group-hover:translate-x-0">
+                        <h4 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">Key Features</h4>
+                        <div class="space-y-4">
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Natural Language Processing</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Computer Vision</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Recommendation Engines</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Autonomous Systems</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card group relative overflow-hidden bg-white rounded-3xl shadow-lg p-8 lg:p-12 fade-in">
+                <div class="gradient-bg absolute inset-0 bg-gradient-to-br from-red-50 to-orange-50 opacity-0"></div>
+                <div class="card-content relative flex flex-col lg:flex-row items-center gap-12">
+                    <div class="flex-shrink-0">
+                        <div class="relative">
+                            <div class="phone-mockup w-48 h-96 bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl">
+                                <div class="w-full h-full bg-slate-100 rounded-[2rem] overflow-hidden">
+                                    <img src="https://images.pexels.com/photos/5325703/pexels-photo-5325703.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Cybersecurity" class="w-full h-full object-cover" />
+                                </div>
+                            </div>
+                            <div class="floating-icon absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-br from-red-500 to-orange-600 rounded-3xl flex items-center justify-center shadow-lg shadow-red-500/30">
+                               <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 20.944a11.955 11.955 0 018.618-3.04 11.955 11.955 0 018.618 3.04 12.02 12.02 0 00-3-14.968z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-grow text-center lg:text-left space-y-6">
+                        <div>
+                            <h3 class="text-4xl font-bold text-gray-900 mb-4">Cybersecurity</h3>
+                            <p class="text-gray-600 text-lg leading-relaxed">Protect your digital assets with robust services, from threat detection to incident response.</p>
+                        </div>
+                        <div class="flex flex-wrap justify-center lg:justify-start items-center gap-4 pt-4">
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Pen Testing</div>
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">Threat Intel</div>
+                            <div class="tech-badge flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full font-medium text-gray-700">SIEM</div>
+                        </div>
+                        <div class="pt-4">
+                            <div class="metric-card inline-flex items-center gap-4 px-6 py-3 bg-gradient-to-r from-red-500 to-orange-600 rounded-2xl text-white shadow-lg shadow-red-500/40">
+                               <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                <div>
+                                    <div class="text-2xl font-bold">99.9%</div>
+                                    <div class="text-sm opacity-90">Threats Blocked</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-panel absolute right-0 top-0 h-full w-full max-w-xs p-8 transform translate-x-full group-hover:translate-x-0">
+                        <h4 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">Key Features</h4>
+                        <div class="space-y-4">
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">24/7 Threat Monitoring</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Vulnerability Assessments</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Incident Response</span></div>
+                            <div class="feature-item flex items-center gap-3"><svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-gray-700">Security Audits</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- Intersection Observer for fade-in animations ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // --- Mouse-tracking background spotlight ---
+        const body = document.body;
+        window.addEventListener('mousemove', (e) => {
+            requestAnimationFrame(() => {
+                body.style.setProperty('--mouse-x', `${e.clientX}px`);
+                body.style.setProperty('--mouse-y', `${e.clientY}px`);
+            });
+        }, { passive: true });
+
+
+        // ✨ FLUIDITY: 3D Tilt Effect for Service Cards
+        const cards = document.querySelectorAll('.service-card');
+
+        cards.forEach(card => {
+            const cardContent = card.querySelector('.card-content');
+            const phone = card.querySelector('.phone-mockup');
+            const icon = card.querySelector('.floating-icon');
+
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / centerY * -6; // Max rotation 6deg
+                const rotateY = (x - centerX) / centerX * 6;  // Max rotation 6deg
+
+                requestAnimationFrame(() => {
+                    cardContent.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                    if (phone) phone.style.transform = `translateZ(40px)`;
+                    if (icon) icon.style.transform = `translateZ(60px) rotate(${rotateY}deg)`;
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                 requestAnimationFrame(() => {
+                    cardContent.style.transform = 'rotateX(0) rotateY(0)';
+                    if (phone) phone.style.transform = 'translateZ(0)';
+                    if (icon) icon.style.transform = 'translateZ(0)';
+                });
+            });
+        });
+
+
+        // --- Ripple effect for buttons ---
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement('span');
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+            const rect = button.getBoundingClientRect();
+
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - rect.left - radius}px`;
+            circle.style.top = `${event.clientY - rect.top - radius}px`;
+            circle.classList.add('ripple');
+
+            const existingRipple = button.querySelector('.ripple');
+            if (existingRipple) {
+                existingRipple.remove();
+            }
+
+            button.appendChild(circle);
+        }
+
+        document.querySelectorAll('.ripple-button').forEach(button => {
+            button.addEventListener('click', createRipple);
+        });
+    });
+    </script>
+</body>
+</html>

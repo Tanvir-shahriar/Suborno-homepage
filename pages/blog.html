@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Suborno App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://kit.fontawesome.com/6e8799c987.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                        'tiro-bangla': ['"Tiro Bangla"', 'serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap');
+
+        /* Hamburger animation */
+        .hamburger-line { transition: all 0.3s ease; }
+        .hamburger-active .line1 { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger-active .line2 { opacity: 0; }
+        .hamburger-active .line3 { transform: rotate(-45deg) translate(7px, -6px); }
+    </style>
+</head>
+<body class="bg-gray-50 font-inter text-gray-800">
+
+    <nav class="bg-white shadow-lg sticky top-0 z-40 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-1 flex items-center w-40 h-20">
+                    <a href="/index.html" class="flex items-center space-x-2 w-40 h-20">
+                        <img src="/images/Suborno App Logo 3.png" alt="Suborno App Logo">
+                    </a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-baseline space-x-5">
+                        <a href="/index.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Home</a>
+                        <a href="/pages/career.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Career</a>
+                        <a href="/pages/donation.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Donate</a>
+                        <a href="/pages/services.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Services</a>
+                        <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Blog</a>
+                        <a href="#footer" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Contact</a>
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        <a href="#" class="bg-blue-600 text-white hover:bg-blue-700 px-3 py-1.5 md:px-4 md:py-2 rounded-md text-sm font-medium transition-colors duration-200">বাংলা</a>
+                        <a href="#" class="hidden md:inline-flex items-center bg-green-500 text-white hover:bg-green-600 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"><i class="fa-solid fa-globe mr-2"></i> Try App</a>
+                    </div>
+                    
+                    <div class="md:hidden">
+                        <button id="mobile-menu-button" class="hamburger-button inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors duration-200">
+                            <span class="sr-only">Open main menu</span>
+                            <div class="hamburger w-6 h-6 flex flex-col justify-center items-center space-y-1">
+                                <span class="hamburger-line line1 block w-5 h-0.5 bg-current"></span>
+                                <span class="hamburger-line line2 block w-5 h-0.5 bg-current"></span>
+                                <span class="hamburger-line line3 block w-5 h-0.5 bg-current"></span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden hidden absolute w-full">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
+                <a href="index.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Home</a>
+                <a href="/pages/career.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Career</a>
+                <a href="/pages/donation.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Donate</a>
+                <a href="/pages/services.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Services</a>
+                <a href="/pages/blog.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Blog</a>
+                <a href="#footer" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <a href="#" class="md:hidden fixed bottom-5 right-5 z-50 bg-green-500 text-white font-semibold px-4 py-3 rounded-full shadow-xl hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-transform duration-200 ease-in-out hover:scale-105">
+    <i class="fa-solid fa-globe mr-2"></i>  Try App
+    </a>
+
+    <main>
+        <section class="bg-gray-100 lg:py-20 md:py-10 py-5">
+            <div class="container mx-auto px-4 text-center">
+                <span class="text-blue-600 bg-blue-100 px-4 py-2 rounded-full text-sm font-semibold">Real stories from real users</span>
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mt-5">Voices from Our Community</h1>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto text-lg">Hear from the people who are using our platform to create meaningful change in their communities and transforming everyday challenges.</p>
+                <div class="mt-10 flex justify-center space-x-4 filter-buttons">
+                    <button class="px-6 py-3 rounded-md border-2 font-medium transition-colors duration-200 active text-blue-600 border-blue-600 bg-white" data-filter="all">All Stories</button>
+                    <button class="px-6 py-3 rounded-md border-2 font-medium transition-colors duration-200 text-gray-700 border-gray-200 bg-white hover:border-blue-600 hover:text-blue-600" data-filter="latest">Latest</button>
+                    <button class="px-6 py-3 rounded-md border-2 font-medium transition-colors duration-200 text-gray-700 border-gray-200 bg-white hover:border-blue-600 hover:text-blue-600" data-filter="featured">Featured</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="lg:py-20 md:py-14 py-0">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                     <article class="story-card md:col-span-2 lg:col-span-3 bg-white rounded-xl overflow-hidden shadow-lg" data-category="">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="relative md:w-1/2">
+                                <img src="/images/wheelchair.png" alt="Story image" class="w-full h-full object-cover">
+                                <span class="absolute top-5 left-5 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase">Featured</span>
+                            </div>
+                            <div class="p-10 flex flex-col justify-center md:w-1/2">
+                                <div class="flex items-center space-x-4 text-sm text-gray-500 mb-4">
+                                    <span>April 22, 2025</span>
+                                    <span>Dhaka</span>
+                                    <span>5 min read</span>
+                                </div>
+                                <h2 class="text-3xl font-bold text-gray-900 mb-3">Finding Independence Through Technology</h2>
+                                <p class="text-gray-600 mb-6 leading-relaxed">Fahmida, who uses a wheelchair, relies on Suborno’s emergency hotline for quick, accessible support during urgent situations, while the app’s educational courses empower her to gain new skills and knowledge from the comfort of her home.</p>
+                                <div class="bg-gray-100 p-5 rounded-lg text-gray-700">
+                                    <strong class="text-blue-600">Impact:</strong> Emergency hotline and educational courses have empowered Fahmida to stay safe and continuously learn, enhancing her independence and confidence.
+                                </div>
+                                <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-100">
+                                    <div class="flex space-x-4">
+                                        <button class="like-btn flex items-center text-gray-500 hover:text-blue-600">
+                                            <i class="far fa-heart mr-2"></i>
+                                            <span class="like-count">124</span>
+                                        </button>
+                                        <button class="share-btn flex items-center text-gray-500 hover:text-blue-600">
+                                            <i class="far fa-share-square mr-2"></i> Share
+                                        </button>
+                                    </div>
+                                    <button class="bookmark-btn text-gray-500 hover:text-blue-600">
+                                        <i class="far fa-bookmark text-xl"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="story-card bg-white rounded-xl overflow-hidden shadow-lg" data-category="latest">
+                        <div class="relative">
+                            <img src="/images/blindman.png" alt="Story image" class="w-full h-64 object-cover">
+                            <span class="absolute top-5 left-5 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase">Education</span>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex items-center space-x-4 text-sm text-gray-500 mb-4">
+                                <span>April 15, 2025</span>
+                                <span>Chittagong</span>
+                                <span>4 min read</span>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-3">Shagor Finds Empowerment Through Audio</h2>
+                            <p class="text-gray-600 mb-6 leading-relaxed">Shagor, a blind man in his 30s, has found a new sense of independence with Suborno. Through the app’s extensive collection of audiobooks, accessible online courses, and informative podcasts, he’s able to keep learning and stay engaged—just by listening. Suborno speaks to me—literally.</p>
+                            <div class="bg-gray-100 p-5 rounded-lg text-gray-700">
+                                <strong class="text-blue-600">Impact:</strong> Suborno has given Shagor the freedom to learn and stay connected independently through accessible audio content tailored to his needs.
+                            </div>
+                            <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-100">
+                                <div class="flex space-x-4">
+                                    <button class="like-btn flex items-center text-gray-500 hover:text-blue-600">
+                                        <i class="far fa-heart mr-2"></i>
+                                        <span class="like-count">98</span>
+                                    </button>
+                                    <button class="share-btn flex items-center text-gray-500 hover:text-blue-600">
+                                        <i class="far fa-share-square mr-2"></i> Share
+                                    </button>
+                                </div>
+                                <button class="bookmark-btn text-gray-500 hover:text-blue-600">
+                                    <i class="far fa-bookmark text-xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="story-card bg-white rounded-xl overflow-hidden shadow-lg" data-category="latest featured">
+                        <div class="relative">
+                            <img src="/images/wheelchair2.png" alt="Story image" class="w-full h-64 object-cover">
+                            <span class="absolute top-5 left-5 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase">Community</span>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex items-center space-x-4 text-sm text-gray-500 mb-4">
+                                <span>April 10, 2025</span>
+                                <span>Khulna</span>
+                                <span>3 min read</span>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-3">Robin’s Journey to Independence</h2>
+                            <p class="text-gray-600 mb-6 leading-relaxed">Robin, a determined young man in his 20s who uses a wheelchair, found new freedom through the Suborno app. With just a few taps, he was able to connect to telemedicine services and order daily-use accessories that ease his mobility challenges. “Before Suborno, even small tasks felt overwhelming.</p>
+                            <div class="bg-gray-100 p-5 rounded-lg text-gray-700">
+                                <strong class="text-blue-600">Impact:</strong> Suborno app has empowered Robin to effortlessly access essential services, greatly enhancing his independence and quality of life.
+                            </div>
+                            <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-100">
+                                <div class="flex space-x-4">
+                                    <button class="like-btn flex items-center text-gray-500 hover:text-blue-600">
+                                        <i class="far fa-heart mr-2"></i>
+                                        <span class="like-count">156</span>
+                                    </button>
+                                    <button class="share-btn flex items-center text-gray-500 hover:text-blue-600">
+                                        <i class="far fa-share-square mr-2"></i> Share
+                                    </button>
+                                </div>
+                                <button class="bookmark-btn text-gray-500 hover:text-blue-600">
+                                    <i class="far fa-bookmark text-xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="story-card bg-white rounded-xl overflow-hidden shadow-lg" data-category="latest">
+                        <div class="relative">
+                            <img src="/images/old woman.jpg" alt="Story image" class="w-full h-64 object-cover">
+                            <span class="absolute top-5 left-5 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase">Healthcare</span>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex items-center space-x-4 text-sm text-gray-500 mb-4">
+                                <span>April 5, 2025</span>
+                                <span>Rajshahi</span>
+                                <span>3 min read</span>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-3">Empowering Independence</h2>
+                            <p class="text-gray-600 mb-6 leading-relaxed">Mukta, a resilient middle-aged woman who has been navigating life with hearing impairment, once found it challenging to access even the most basic services independently. Everyday tasks that others might take for granted became hurdles, amplifying her sense of isolation. However, since discovering the Suborno app—a platform designed to bridge accessibility gaps—her life has transformed in remarkable ways.</p>
+                            <div class="bg-gray-100 p-5 rounded-lg text-gray-700">
+                                <strong class="text-blue-600">Impact:</strong> Since discovering the Suborno app, Mukta's ability to access basic services independently has dramatically improved, empowering her with confidence and ease in daily life.
+                            </div>
+                            <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-100">
+                                <div class="flex space-x-4">
+                                    <button class="like-btn flex items-center text-gray-500 hover:text-blue-600">
+                                        <i class="far fa-heart mr-2"></i>
+                                        <span class="like-count">187</span>
+                                    </button>
+                                    <button class="share-btn flex items-center text-gray-500 hover:text-blue-600">
+                                        <i class="far fa-share-square mr-2"></i> Share
+                                    </button>
+                                </div>
+                                <button class="bookmark-btn text-gray-500 hover:text-blue-600">
+                                    <i class="far fa-bookmark text-xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gray-100 py-20">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-900">Recent Impact Events</h2>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto text-lg">See how our community is creating measurable change through coordinated action.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                        <img src="/images/rise-bangladesh-3.jpg" alt="Community Clean-Up Day" class="w-full h-80 object-cover">
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-3">Shuborno App Supports Rise Bangladesh’s Mission for Autism Awareness</h3>
+                            <div class="flex items-center space-x-4 text-sm text-gray-500 mt-2 mb-4">
+                                <span>April 22, 2025</span>
+                                <span>Basabo</span>
+                            </div>
+                            <p class="text-gray-600 mb-6 leading-relaxed">Suborno App serves as a valuable digital partner for <strong>Rise Bangladesh</strong>, supporting their mission to promote autism awareness and empower families. With features like event promotion, digital registration, and health tracking, the app streamlines outreach initiatives such as health camps and awareness programs...</p>
+                            <div class="bg-gray-50 p-5 rounded-lg text-gray-700 mb-8">
+                                <span class="font-semibold text-blue-600">Impact:</span> Suborno App has empowered families and strengthened community outreach by making autism-related services more accessible, inclusive, and efficient.
+                            </div>
+                            <button class="share-btn bg-transparent border border-blue-600 text-blue-600 px-6 py-3 rounded-md hover:bg-blue-600 hover:text-white transition duration-200">
+                                <i class="fas fa-share-alt mr-2"></i>Share
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                        <img src="/images/therapies-hub-3.jpg" alt="Youth Leadership Workshop" class="w-full h-80 object-cover">
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-3">Enhancing Personalized Therapy with Shuborno App</h3>
+                            <div class="flex items-center space-x-4 text-sm text-gray-500 mt-2 mb-4">
+                                <span>March 15, 2025</span>
+                                <span>Community Center</span>
+                            </div>
+                            <p class="text-gray-600 mb-6 leading-relaxed">Suborno App can empower <strong>Therapies Hub</strong> to deliver even more personalized, efficient, and connected care. By integrating appointment scheduling, therapy progress tracking, and digital assessments into one platform, the app simplifies day-to-day operations and enhances patient engagement...</p>
+                            <div class="bg-gray-50 p-5 rounded-lg text-gray-700 mb-8">
+                                <span class="font-semibold text-blue-600">Impact:</span> Suborno App enhances Therapies Hub’s ability to deliver tailored therapeutic care by streamlining operations and strengthening parent-clinic collaboration.
+                            </div>
+                            <button class="share-btn bg-transparent border border-blue-600 text-blue-600 px-6 py-3 rounded-md hover:bg-blue-600 hover:text-white transition duration-200">
+                                <i class="fas fa-share-alt mr-2"></i>Share
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gray-800 text-white py-20">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-4xl font-bold">Stay Connected With Our Community</h2>
+                <p class="mt-4 opacity-90 max-w-xl mx-auto text-lg">Get updates on upcoming events, success stories, and ways you can make an impact.</p>
+                <form class="mt-10 max-w-lg mx-auto">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <input type="email" placeholder="Enter your email" required class="flex-grow px-4 py-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button type="submit" class="bg-white text-blue-600 px-8 py-3 rounded-md font-semibold hover:bg-gray-200">Subscribe</button>
+                    </div>
+                    <p class="text-sm opacity-80 mt-4">We respect your privacy. Unsubscribe at any time.</p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer" class="bg-gray-900 text-gray-400">
+        <div class="container mx-auto px-4 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-12">
+    
+                <div class="md:col-span-3 lg:col-span-2 text-center md:text-left">
+                    <img src="/images/Suborno App Logo 2.png" alt="Suborno App Logo" class="h-12 mx-auto md:mx-0">
+                    <p class="mt-5 text-sm leading-relaxed max-w-md mx-auto md:mx-0">
+                        Creating meaningful change through community-powered action. Our app connects people with local initiatives to amplify social impact.
+                    </p>
+                    <div class="flex justify-center md:justify-start space-x-5 mt-6">
+                        <a href="#" aria-label="Facebook" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="#" aria-label="Instagram" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" aria-label="Twitter" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" aria-label="LinkedIn" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-linkedin-in text-xl"></i></a>
+                    </div>
+                </div>
+    
+                <div class="text-center md:text-left border-t border-gray-800 md:border-t-0 pt-8 md:pt-0">
+                    <button data-toggle-target="#quick-links-panel" class="accordion-toggle flex justify-between items-center w-full">
+                        <h3 class="text-white font-semibold text-lg">Quick Links</h3>
+                        <svg class="w-5 h-5 text-gray-400 transition-transform duration-300 md:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <ul id="quick-links-panel" class="hidden md:block space-y-3 text-sm mt-5">
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">Home</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">Impact Stories</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">Events</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">Contact</a></li>
+                    </ul>
+                </div>
+    
+                <div class="text-center md:text-left border-t border-gray-800 md:border-t-0 pt-8 md:pt-0">
+                     <button data-toggle-target="#contact-panel" class="accordion-toggle flex justify-between items-center w-full">
+                        <h3 class="text-white font-semibold text-lg">Have Questions?</h3>
+                        <svg class="w-5 h-5 text-gray-400 transition-transform duration-300 md:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <ul id="contact-panel" class="hidden md:block space-y-4 text-sm mt-5">
+                        <li class="flex items-center justify-center md:justify-start">
+                            <i class="fa-solid fa-envelope mr-3 w-4 text-center"></i>
+                            <a href="mailto:contact@suborno.com.bd" class="hover:text-white transition-colors duration-200">contact@suborno.com.bd</a>
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start">
+                            <i class="fa-solid fa-phone mr-3 w-4 text-center"></i>
+                            <a href="tel:+8801732634499" class="hover:text-white transition-colors duration-200">+880 1732-634499</a>
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start">
+                            <i class="fa-solid fa-location-dot mr-3 w-4 text-center"></i>
+                            <span>Joar Sahara, Narda, Dhaka</span>
+                        </li>
+                    </ul>
+                </div>
+    
+            </div>
+    
+            <div class="mt-16 border-t border-gray-800 pt-8 flex flex-col items-center gap-y-4 md:flex-row md:justify-between text-sm">
+                <p>&copy; 2025 Suborno. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-white transition-colors duration-200">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors duration-200">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div id="share-modal" class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl p-8 max-w-sm w-full mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold">Share this story</h3>
+                <button id="close-modal-btn" class="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+            </div>
+            <div class="grid grid-cols-2 gap-4 text-center">
+                <a id="share-facebook" href="#" target="_blank" class="p-4 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <i class="fab fa-facebook-f text-3xl text-blue-600"></i>
+                    <p class="mt-2 text-sm">Facebook</p>
+                </a>
+                <a id="share-twitter" href="#" target="_blank" class="p-4 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <i class="fab fa-twitter text-3xl text-sky-500"></i>
+                    <p class="mt-2 text-sm">Twitter</p>
+                </a>
+                <a id="share-linkedin" href="#" target="_blank" class="p-4 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <i class="fab fa-linkedin-in text-3xl text-blue-700"></i>
+                    <p class="mt-2 text-sm">LinkedIn</p>
+                </a>
+                <a id="share-whatsapp" href="#" target="_blank" class="p-4 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <i class="fab fa-whatsapp text-3xl text-green-500"></i>
+                    <p class="mt-2 text-sm">WhatsApp</p>
+                </a>
+            </div>
+            <div class="mt-6">
+                <p class="text-sm text-gray-600 mb-2">Or copy link</p>
+                <div class="flex items-center border rounded-lg p-2 bg-gray-50">
+                    <input id="copy-link-input" type="text" readonly class="flex-grow bg-transparent text-sm text-gray-700 focus:outline-none">
+                    <button id="copy-link-btn" class="bg-blue-600 text-white px-4 py-1 rounded text-sm font-semibold hover:bg-blue-700">Copy</button>
+                </div>
+                <p id="copy-success-msg" class="text-green-600 text-xs mt-2 hidden">Link copied to clipboard!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Mobile menu toggle functionality ---
+        class MobileNavigation {
+            constructor() {
+                this.mobileMenuButton = document.getElementById('mobile-menu-button');
+                this.mobileMenu = document.getElementById('mobile-menu');
+                this.hamburger = this.mobileMenuButton.querySelector('.hamburger');
+                this.isOpen = false;
+                
+                this.init();
+            }
+            
+            init() {
+                this.mobileMenuButton.addEventListener('click', () => {
+                    this.toggleMenu();
+                });
+                
+                // Close menu when clicking on a link
+                const mobileLinks = this.mobileMenu.querySelectorAll('a');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        this.closeMenu();
+                    });
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (this.isOpen && !this.mobileMenuButton.contains(e.target) && !this.mobileMenu.contains(e.target)) {
+                        this.closeMenu();
+                    }
+                });
+                
+                // Close menu on escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.isOpen) {
+                        this.closeMenu();
+                    }
+                });
+                
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth >= 768 && this.isOpen) {
+                        this.closeMenu();
+                    }
+                });
+            }
+            
+            toggleMenu() {
+                if (this.isOpen) {
+                    this.closeMenu();
+                } else {
+                    this.openMenu();
+                }
+            }
+            
+            openMenu() {
+                this.isOpen = true;
+                this.mobileMenu.classList.remove('hidden');
+                this.hamburger.classList.add('hamburger-active');
+                
+                // Prevent body scroll when menu is open
+                document.body.style.overflow = 'hidden';
+                
+                // Focus management for accessibility
+                this.mobileMenu.querySelector('a').focus();
+            }
+            
+            closeMenu() {
+                this.isOpen = false;
+                this.mobileMenu.classList.add('hidden');
+                this.hamburger.classList.remove('hamburger-active');
+                
+                // Restore body scroll
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // --- Smooth scrolling for anchor links ---
+        class SmoothScroll {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                const links = document.querySelectorAll('a[href^="#"]');
+                links.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        const href = link.getAttribute('href');
+                        if (href === '#') return;
+                        
+                        const target = document.querySelector(href);
+                        if (target) {
+                            e.preventDefault();
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    });
+                });
+            }
+        }
+        
+        // --- Story filtering logic ---
+        class StoryFilter {
+            constructor() {
+                this.filterButtons = document.querySelectorAll('.filter-buttons button');
+                this.stories = document.querySelectorAll('.story-card');
+                this.init();
+            }
+            init() {
+                if (this.filterButtons.length === 0) return;
+                this.filterButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const filter = button.getAttribute('data-filter');
+                        this.filterButtons.forEach(btn => {
+                            btn.classList.remove('active', 'text-blue-600', 'border-blue-600');
+                            btn.classList.add('text-gray-700', 'border-gray-200');
+                        });
+                        button.classList.add('active', 'text-blue-600', 'border-blue-600');
+                        button.classList.remove('text-gray-700', 'border-gray-200');
+                        this.stories.forEach(story => {
+                            const categories = story.dataset.category || '';
+                            if (filter === 'all' || categories.toLowerCase().includes(filter)) {
+                                story.style.display = 'block';
+                            } else {
+                                story.style.display = 'none';
+                            }
+                        });
+                    });
+                });
+            }
+        }
+
+        // --- Share Functionality ---
+        class ShareFunctionality {
+            constructor() {
+                this.modal = document.getElementById('share-modal');
+                this.closeBtn = document.getElementById('close-modal-btn');
+                this.shareBtns = document.querySelectorAll('.share-btn');
+                this.copyLinkBtn = document.getElementById('copy-link-btn');
+                this.copySuccessMsg = document.getElementById('copy-success-msg');
+                this.init();
+            }
+            init() {
+                if (!this.modal) return;
+                this.shareBtns.forEach(btn => btn.addEventListener('click', (e) => this.openModal(e)));
+                this.closeBtn.addEventListener('click', () => this.closeModal());
+                this.modal.addEventListener('click', (e) => { if (e.target.id === 'share-modal') this.closeModal(); });
+                this.copyLinkBtn.addEventListener('click', () => this.copyLink());
+            }
+            openModal(event) {
+                const url = window.location.href;
+                const title = document.title;
+                document.getElementById('share-facebook').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+                document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+                document.getElementById('share-linkedin').href = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;
+                document.getElementById('share-whatsapp').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(title + " " + url)}`;
+                document.getElementById('copy-link-input').value = url;
+                this.modal.classList.remove('hidden');
+                this.modal.classList.add('flex');
+            }
+            closeModal() {
+                this.modal.classList.add('hidden');
+                this.modal.classList.remove('flex');
+                this.copySuccessMsg.classList.add('hidden');
+            }
+            copyLink() {
+                const linkInput = document.getElementById('copy-link-input');
+                linkInput.select();
+                document.execCommand('copy');
+                this.copySuccessMsg.classList.remove('hidden');
+                setTimeout(() => this.copySuccessMsg.classList.add('hidden'), 2000);
+            }
+        }
+
+        // --- Like Button Functionality ---
+        class LikeButton {
+            constructor() {
+                this.likeBtns = document.querySelectorAll('.like-btn');
+                this.init();
+            }
+            init() {
+                this.likeBtns.forEach(btn => {
+                    btn.addEventListener('click', () => this.toggleLike(btn), { once: true });
+                });
+            }
+            toggleLike(btn) {
+                const countSpan = btn.querySelector('.like-count');
+                let currentLikes = parseInt(countSpan.textContent, 10);
+                countSpan.textContent = currentLikes + 1;
+                
+                const icon = btn.querySelector('i');
+                icon.classList.remove('far');
+                icon.classList.add('fas', 'text-red-500');
+            }
+        }
+
+        // --- Bookmark Button Functionality ---
+        class BookmarkButton {
+            constructor() {
+                this.bookmarkBtns = document.querySelectorAll('.bookmark-btn');
+                this.init();
+            }
+            init() {
+                this.bookmarkBtns.forEach(btn => {
+                    btn.addEventListener('click', () => this.toggleBookmark(btn));
+                });
+            }
+            toggleBookmark(btn) {
+                const icon = btn.querySelector('i');
+                icon.classList.toggle('far'); // Regular icon
+                icon.classList.toggle('fas'); // Solid icon
+                btn.classList.toggle('text-yellow-500');
+            }
+        }
+
+        // --- NEW: Footer Accordion Functionality ---
+        class FooterAccordion {
+            constructor() {
+                this.accordionToggles = document.querySelectorAll('.accordion-toggle');
+                this.init();
+            }
+            init() {
+                if (!this.accordionToggles.length) return;
+                this.accordionToggles.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const targetPanelId = button.getAttribute('data-toggle-target');
+                        const targetPanel = document.querySelector(targetPanelId);
+                        const icon = button.querySelector('svg');
+
+                        if (targetPanel) {
+                            targetPanel.classList.toggle('hidden');
+                            if (icon) {
+                                icon.classList.toggle('rotate-180');
+                            }
+                        }
+                    });
+                });
+            }
+        }
+
+
+        // --- Initialize all classes when DOM is loaded ---
+        document.addEventListener('DOMContentLoaded', () => {
+            new MobileNavigation();
+            new SmoothScroll();
+            new StoryFilter();
+            new ShareFunctionality();
+            new LikeButton();
+            new BookmarkButton();
+            new FooterAccordion(); // Initialize the new footer script
+        });
+    </script>
+</body>
+</html>

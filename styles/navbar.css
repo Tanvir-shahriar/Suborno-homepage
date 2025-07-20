@@ -1,0 +1,105 @@
+/* ================================================= */
+/* NAVBAR STYLES (ALL DEVICES)          */
+/* ================================================= */
+
+/* Default desktop styles for the nav bar */
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000; /* Ensures it stays on top of other content */
+    background-color: white; /* Optional: Set a background to prevent transparency */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Small shadow for visibility */
+}
+
+.navbar img {
+    width: 9rem;
+    height: 3.5rem;
+    margin: auto 0;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-links ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-links li {
+    list-style: none;
+    margin: 0 10px;
+}
+
+.navbar-links a {
+    text-decoration: none;
+}
+
+/* Hamburger menu (hidden by default on desktop) */
+.hamburger {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+    margin: auto 0;
+}
+
+/* ================================================= */
+/* RESPONSIVE STYLES               */
+/* ================================================= */
+
+/* Mobile Styles (up to 768px) */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0 1rem;
+    }
+
+    .navbar-links {
+        display: none; /* Hidden by default on mobile */
+        width: 100%;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        background-color: #111; /* change to match your theme */
+    }
+
+    .navbar-links ul {
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+    }
+
+    .navbar-links li {
+        color: white;
+        margin: 15px 0;
+        text-align: center;
+    }
+    
+    .navbar-links a {
+        color: white;
+        font-size: 1rem;
+    }
+
+    .hamburger {
+        display: block; /* Visible on mobile */
+    }
+
+    .navbar-links.active {
+        display: flex; /* Shown when toggled by JavaScript */
+        flex-direction: column;
+    }
+}
+
+/* Tablet Styles (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .navbar {
+        padding: 0 2rem;
+    }
+}

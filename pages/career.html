@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Career Page - Suborno App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: 'hsl(0 0% 100%)',
+                        foreground: 'hsl(15 25% 15%)',
+                        card: 'hsl(0 0% 100%)',
+                        'card-foreground': 'hsl(15 25% 15%)',
+                        primary: 'hsl(197 71% 52%)',
+                        'primary-foreground': 'hsl(0 0% 98%)',
+                        secondary: 'hsl(39 100% 67%)',
+                        'secondary-foreground': 'hsl(15 25% 15%)',
+                        muted: 'hsl(39 30% 95%)',
+                        'muted-foreground': 'hsl(15 16% 55%)',
+                        accent: 'hsl(158 64% 52%)',
+                        'accent-foreground': 'hsl(0 0% 98%)',
+                        border: 'hsl(214.3 31.8% 91.4%)',
+                        input: 'hsl(214.3 31.8% 91.4%)',
+                        ring: 'hsl(222.2 84% 4.9%)',
+                        destructive: 'hsl(0 84.2% 60.2%)',
+                        'destructive-foreground': 'hsl(210 40% 98%)',
+                        'volunteer-warm': 'hsl(24 100% 65%)',
+                        'volunteer-heart': 'hsl(350 89% 60%)',
+                        'volunteer-nature': 'hsl(158 64% 52%)',
+                        'volunteer-sky': 'hsl(197 71% 52%)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Base styles from career.html */
+        .gradient-hero {
+            background: linear-gradient(135deg, hsl(197 71% 52%), hsl(158 64% 52%));
+        }
+        .gradient-warm {
+            background: linear-gradient(45deg, hsl(24 100% 65%), hsl(350 89% 60%));
+        }
+        .gradient-button {
+            background: linear-gradient(to right, hsl(197 71% 52%), hsl(158 64% 52%));
+        }
+        .shadow-volunteer {
+            box-shadow: 0 20px 40px -12px hsl(197 71% 52% / 0.3);
+        }
+        .backdrop-blur {
+            backdrop-filter: blur(12px);
+        }
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: 1px solid hsl(214.3 31.8% 91.4%);
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            max-width: 400px;
+        }
+        .toast.show {
+            transform: translateX(0);
+        }
+        .toast.success {
+            border-left: 4px solid hsl(158 64% 52%);
+        }
+        .toast.error {
+            border-left: 4px solid hsl(0 84.2% 60.2%);
+        }
+
+        /* Custom animations from try.html */
+        .mobile-menu-enter {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        .mobile-menu-enter-active {
+            transform: translateY(0);
+            opacity: 1;
+            transition: all 0.3s ease-in-out;
+        }
+        .mobile-menu-exit {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .mobile-menu-exit-active {
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        /* Hamburger animation from try.html */
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        .hamburger-active .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger-active .line2 {
+            opacity: 0;
+        }
+        .hamburger-active .line3 {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+    </style>
+</head>
+<body class="min-h-screen" style="background-color: hsl(0 0% 100%);">
+    
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-6 h-16">
+                <div class="flex-1 flex items-center">
+                    <a href="#" class="flex items-center space-x-2">
+                        <div class="w-40 h-20 flex items-center justify-center">
+                            <a href="/index.html"><img src="/images/Suborno App Logo 3.png" alt="Suborno App Logo"></a>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-5">
+                        <a href="/index.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Home</a>
+                        <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Career</a>
+                        <a href="/pages/donation.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Donate</a>
+                        <a href="/pages/services.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Services</a>
+                        <a href="/pages/blog.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Blog</a>
+                        <a href="#footer" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-blue-50">Contact</a>
+                    </div>
+                </div>
+
+                <div class="hidden md:block">
+                    <a href="index-bangla.html" class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200">বাংলা</a>
+                </div>
+                
+                <div class="md:hidden flex items-center space-x-3">
+                    <a href="index-bangla.html" class="bg-blue-600 text-white hover:bg-blue-700 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200">বাংলা</a>
+                    
+                    <button id="mobile-menu-button" class="hamburger-button inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors duration-200">
+                        <span class="sr-only">Open main menu</span>
+                        <div class="hamburger w-6 h-6 flex flex-col justify-center items-center space-y-1">
+                            <span class="hamburger-line line1 block w-5 h-0.5 bg-current"></span>
+                            <span class="hamburger-line line2 block w-5 h-0.5 bg-current"></span>
+                            <span class="hamburger-line line3 block w-5 h-0.5 bg-current"></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
+                <a href="index.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Home</a>
+                <a href="career.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Career</a>
+                <a href="#" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Donate</a>
+                <a href="donation.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Services</a>
+                <a href="blog.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Blog</a>
+                <a href="#footer" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="toast-container"></div>
+
+    <section class="relative overflow-hidden">
+        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" 
+             style="background-image: url('/images/career1.png');">
+            <div class="absolute inset-0" style="background: linear-gradient(to right, hsl(197 71% 52% / 0.9), hsl(158 64% 52% / 0.8));"></div>
+        </div>
+        
+        <div class="relative z-10 container mx-auto px-4 py-16 lg:py-24">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 ">
+                <div class="text-center lg:text-left">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                        
+                        <span class="block" style="color: hsl(39 100% 67%);">Suborno</span>
+                        Offers volunteer opportunities
+                    </h1>
+                    
+                    <p class="text-xl mb-8 leading-relaxed" style="color: hsl(0 0% 100% / 0.9);">
+                        Join our community of passionate volunteers and help create positive change in the world. Every act of service, no matter how small, has the power to transform lives.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+                        <div class="backdrop-blur rounded-lg border p-6 text-center" 
+                             style="background-color: hsl(0 0% 100% / 0.1); border-color: hsl(0 0% 100% / 0.2);">
+                            <svg class="h-8 w-8 mx-auto mb-3" style="color: hsl(39 100% 67%);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                            <div class="text-2xl font-bold text-white mb-1">10,000+</div>
+                            <div class="text-sm" style="color: hsl(0 0% 100% / 0.8);">Lives Touched</div>
+                        </div>
+                        
+                        <div class="backdrop-blur rounded-lg border p-6 text-center" 
+                             style="background-color: hsl(0 0% 100% / 0.1); border-color: hsl(0 0% 100% / 0.2);">
+                            <svg class="h-8 w-8 mx-auto mb-3" style="color: hsl(39 100% 67%);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/>
+                            </svg>
+                            <div class="text-2xl font-bold text-white mb-1">50+</div>
+                            <div class="text-sm" style="color: hsl(0 0% 100% / 0.8);">Active Volunteers</div>
+                        </div>
+                        
+                        <div class="backdrop-blur rounded-lg border p-6 text-center" 
+                             style="background-color: hsl(0 0% 100% / 0.1); border-color: hsl(0 0% 100% / 0.2);">
+                            <svg class="h-8 w-8 mx-auto mb-3" style="color: hsl(39 100% 67%);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"/>
+                            </svg>
+                            <div class="text-2xl font-bold text-white mb-1">20+</div>
+                            <div class="text-sm" style="color: hsl(0 0% 100% / 0.8);">Communities Served</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 text-left">
+                        <div class="flex items-center" style="color: hsl(0 0% 100% / 0.9);">
+                            <svg class="h-5 w-5 mr-3 flex-shrink-0" style="color: hsl(39 100% 67%);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Flexible scheduling to fit your lifestyle</span>
+                        </div>
+                        <div class="flex items-center" style="color: hsl(0 0% 100% / 0.9);">
+                            <svg class="h-5 w-5 mr-3 flex-shrink-0" style="color: hsl(39 100% 67%);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Comprehensive training and ongoing support</span>
+                        </div>
+                        <div class="flex items-center" style="color: hsl(0 0% 100% / 0.9);">
+                            <svg class="h-5 w-5 mr-3 flex-shrink-0" style="color: hsl(39 100% 67%);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Connect with like-minded individuals</span>
+                        </div>
+                        <div class="flex items-center" style="color: hsl(0 0% 100% / 0.9);">
+                            <svg class="h-5 w-5 mr-3 flex-shrink-0" style="color: hsl(39 100% 67%);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Gain valuable experience and skills</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="backdrop-blur rounded-lg shadow-volunteer p-8" 
+                     style="background-color: hsl(0 0% 100% / 0.95);">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold mb-2" style="color: hsl(15 25% 15%);">Join Our Team</h2>
+                        <p style="color: hsl(15 16% 55%);">Start your volunteer journey today</p>
+                    </div>
+
+                    <form id="volunteerForm" action="https://formspree.io/f/xgvzvozn" method="POST" class="space-y-6">
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-semibold pb-2 border-b" style="color: hsl(15 25% 15%); border-color: hsl(214.3 31.8% 91.4%);">
+                                Personal Information
+                            </h3>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="firstName" class="block text-sm font-medium mb-2" style="color: hsl(15 25% 15%);">First Name *</label>
+                                    <input type="text" id="firstName" name="firstName" required
+                                           class="w-full px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                           style="background-color: hsl(0 0% 100%); border-color: hsl(214.3 31.8% 91.4%); color: hsl(15 25% 15%);">
+                                </div>
+                                <div>
+                                    <label for="lastName" class="block text-sm font-medium mb-2" style="color: hsl(15 25% 15%);">Last Name *</label>
+                                    <input type="text" id="lastName" name="lastName" required
+                                           class="w-full px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                           style="background-color: hsl(0 0% 100%); border-color: hsl(214.3 31.8% 91.4%); color: hsl(15 25% 15%);">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="email" class="block text-sm font-medium mb-2" style="color: hsl(15 25% 15%);">Email Address *</label>
+                                    <input type="email" id="email" name="email" required
+                                           class="w-full px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                           style="background-color: hsl(0 0% 100%); border-color: hsl(214.3 31.8% 91.4%); color: hsl(15 25% 15%);">
+                                </div>
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium mb-2" style="color: hsl(15 25% 15%);">Phone Number *</label>
+                                    <input type="tel" id="phone" name="phone" required
+                                           class="w-full px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                           style="background-color: hsl(0 0% 100%); border-color: hsl(214.3 31.8% 91.4%); color: hsl(15 25% 15%);">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="dateOfBirth" class="block text-sm font-medium mb-2" style="color: hsl(15 25% 15%);">Date of Birth *</label>
+                                <input type="date" id="dateOfBirth" name="dateOfBirth" required
+                                       class="w-full px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                       style="background-color: hsl(0 0% 100%); border-color: hsl(214.3 31.8% 91.4%); color: hsl(15 25% 15%);">
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-semibold pb-2 border-b" style="color: hsl(15 25% 15%); border-color: hsl(214.3 31.8% 91.4%);">
+                                Address Information
+                            </h3>
+                            
+                            <div>
+                                <label for="address" class="block text-sm font-medium mb-2" style="color: hsl(15 25% 15%);">Street Address *</label>
+                                <input type="text" id="address" name="address" required
+                                       class="w-full px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                       style="background-color: hsl(0 0% 100%); border-color: hsl(214.3 31.8% 91.4%); color: hsl(15 25% 15%);">
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label for="city" class="block text-sm font-medium mb-2" style="color: hsl(15 25% 15%);">City *</label>
+                                    <input type="text" id="city" name="city" required
+                                           class="w-full px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                           style="background-color: hsl(0 0% 100%); border-color: hsl(214.3 31.8% 91.4%); color: hsl(15 25% 15%);">
+                                </div>
+                                <div>
+                                    <label for="state" class="block text-sm font-medium mb-2" style="color: hsl(15 25% 15%);">District *</label>
+                                    <input type="text" id="state" name="state" required
+                                           class="w-full px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                           style="background-color: hsl(0 0% 100%); border-color: hsl(214.3 31.8% 91.4%); color: hsl(15 25% 15%);">
+                                </div>
+                                <div>
+                                    <label for="zipCode" class="block text-sm font-medium mb-2" style="color: hsl(15 25% 15%);">ZIP Code *</label>
+                                    <input type="text" id="zipCode" name="zipCode" required
+                                           class="w-full px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                           style="background-color: hsl(0 0% 100%); border-color: hsl(214.3 31.8% 91.4%); color: hsl(15 25% 15%);">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-semibold pb-2 border-b" style="color: hsl(15 25% 15%); border-color: hsl(214.3 31.8% 91.4%);">
+                                Emergency Contact
+                            </h3>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="emergencyContact" class="block text-sm font-medium mb-2" style="color: hsl(15 25% 15%);">Contact Name *</label>
+                                    <input type="text" id="emergencyContact" name="emergencyContact" required
+                                           class="w-full px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                           style="background-color: hsl(0 0% 100%); border-color: hsl(214.3 31.8% 91.4%); color: hsl(15 25% 15%);">
+                                </div>
+                                <div>
+                                    <label for="emergencyPhone" class="block text-sm font-medium mb-2" style="color: hsl(15 25% 15%);">Contact Phone *</label>
+                                    <input type="tel" id="emergencyPhone" name="emergencyPhone" required
+                                           class="w-full px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                           style="background-color: hsl(0 0% 100%); border-color: hsl(214.3 31.8% 91.4%); color: hsl(15 25% 15%);">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-semibold pb-2 border-b" style="color: hsl(15 25% 15%); border-color: hsl(214.3 31.8% 91.4%);">
+                                Volunteer Information
+                            </h3>
+                            
+                            <div>
+                                <label for="availability" class="block text-sm font-medium mb-2" style="color: hsl(15 25% 15%);">Availability *</label>
+                                <select id="availability" name="availability" required
+                                        class="w-full px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        style="background-color: hsl(0 0% 100%); border-color: hsl(214.3 31.8% 91.4%); color: hsl(15 25% 15%);">
+                                    <option value="">Select your availability</option>
+                                    <option value="weekdays">Weekdays</option>
+                                    <option value="weekends">Weekends</option>
+                                    <option value="both">Both Weekdays & Weekends</option>
+                                    <option value="flexible">Flexible</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="interests" class="block text-sm font-medium mb-2" style="color: hsl(15 25% 15%);">Areas of Interest *</label>
+                                <textarea id="interests" name="interests" rows="3" required
+                                          placeholder="Tell us about your volunteer interests (education, environment, healthcare, etc.)"
+                                          class="w-full px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                          style="background-color: hsl(0 0% 100%); border-color: hsl(214.3 31.8% 91.4%); color: hsl(15 25% 15%);"></textarea>
+                            </div>
+
+                            <div>
+                                <label for="experience" class="block text-sm font-medium mb-2" style="color: hsl(15 25% 15%);">Previous Volunteer Experience</label>
+                                <textarea id="experience" name="experience" rows="3"
+                                          placeholder="Describe any previous volunteer experience (optional)"
+                                          class="w-full px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                          style="background-color: hsl(0 0% 100%); border-color: hsl(214.3 31.8% 91.4%); color: hsl(15 25% 15%);"></textarea>
+                            </div>
+
+                            <div>
+                                <label for="motivation" class="block text-sm font-medium mb-2" style="color: hsl(15 25% 15%);">Why do you want to volunteer? *</label>
+                                <textarea id="motivation" name="motivation" rows="3" required
+                                          placeholder="Share your motivation for volunteering with us"
+                                          class="w-full px-3 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                          style="background-color: hsl(0 0% 100%); border-color: hsl(214.3 31.8% 91.4%); color: hsl(15 25% 15%);"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-semibold pb-2 border-b" style="color: hsl(15 25% 15%); border-color: hsl(214.3 31.8% 91.4%);">
+                                Legal Agreements
+                            </h3>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-start space-x-3">
+                                    <input type="checkbox" id="privacyPolicy" name="privacyPolicy" required
+                                           class="mt-1 h-4 w-4 rounded border focus:ring-2 focus:ring-blue-500"
+                                           style="color: hsl(197 71% 52%); border-color: hsl(214.3 31.8% 91.4%);">
+                                    <div class="text-sm leading-relaxed">
+                                        <label for="privacyPolicy" class="font-medium block mb-1" style="color: hsl(15 25% 15%);">
+                                            Privacy Policy Agreement *
+                                        </label>
+                                        <p style="color: hsl(15 16% 55%);">
+                                            I understand and agree to the
+                                            <a href="#" class="underline hover:no-underline" style="color: hsl(197 71% 52%);">Privacy Policy</a>,
+                                            including how my personal information will be collected, used, and protected by the organization.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-3">
+                                    <input type="checkbox" id="termsConditions" name="termsConditions" required
+                                           class="mt-1 h-4 w-4 rounded border focus:ring-2 focus:ring-blue-500"
+                                           style="color: hsl(197 71% 52%); border-color: hsl(214.3 31.8% 91.4%);">
+                                    <div class="text-sm leading-relaxed">
+                                        <label for="termsConditions" class="font-medium block mb-1" style="color: hsl(15 25% 15%);">
+                                            Terms and Conditions Agreement *
+                                        </label>
+                                        <p style="color: hsl(15 16% 55%);">
+                                            I agree to the
+                                            <a href="#" class="underline hover:no-underline" style="color: hsl(197 71% 52%);">Terms and Conditions</a>,
+                                            volunteer guidelines, and code of conduct. I understand my responsibilities as a volunteer.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" 
+                                class="w-full font-semibold py-3 px-6 rounded-md text-white hover:opacity-90 transition-opacity flex items-center justify-center gradient-button">
+                            Submit Application
+                            <svg class="h-5 w-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                            </svg>
+                        </button>
+
+                        <p class="text-xs text-center leading-relaxed" style="color: hsl(15 16% 55%);">
+                            By submitting this application, you acknowledge that all information provided is accurate and complete. 
+                            Our team will review your application and contact you within 5-7 business days.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Mobile menu toggle functionality from try.html
+        class MobileNavigation {
+            constructor() {
+                this.mobileMenuButton = document.getElementById('mobile-menu-button');
+                this.mobileMenu = document.getElementById('mobile-menu');
+                this.hamburger = this.mobileMenuButton.querySelector('.hamburger');
+                this.isOpen = false;
+                
+                this.init();
+            }
+            
+            init() {
+                this.mobileMenuButton.addEventListener('click', () => {
+                    this.toggleMenu();
+                });
+                
+                // Close menu when clicking on a link
+                const mobileLinks = this.mobileMenu.querySelectorAll('a');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        this.closeMenu();
+                    });
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (this.isOpen && !this.mobileMenuButton.contains(e.target) && !this.mobileMenu.contains(e.target)) {
+                        this.closeMenu();
+                    }
+                });
+                
+                // Close menu on escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.isOpen) {
+                        this.closeMenu();
+                    }
+                });
+                
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth >= 768 && this.isOpen) {
+                        this.closeMenu();
+                    }
+                });
+            }
+            
+            toggleMenu() {
+                if (this.isOpen) {
+                    this.closeMenu();
+                } else {
+                    this.openMenu();
+                }
+            }
+            
+            openMenu() {
+                this.isOpen = true;
+                this.mobileMenu.classList.remove('hidden');
+                this.hamburger.classList.add('hamburger-active');
+                
+                // Prevent body scroll when menu is open
+                document.body.style.overflow = 'hidden';
+                
+                // Focus management for accessibility
+                this.mobileMenu.querySelector('a').focus();
+            }
+            
+            closeMenu() {
+                this.isOpen = false;
+                this.mobileMenu.classList.add('hidden');
+                this.hamburger.classList.remove('hamburger-active');
+                
+                // Restore body scroll
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // Smooth scrolling for anchor links from try.html
+        class SmoothScroll {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                const links = document.querySelectorAll('a[href^="#"]');
+                links.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        const href = link.getAttribute('href');
+                        if (href === '#') return;
+                        
+                        const target = document.querySelector(href);
+                        if (target) {
+                            e.preventDefault();
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    });
+                });
+            }
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new MobileNavigation();
+            new SmoothScroll();
+        });
+    </script>
+    <script>
+        // Toast notification system from career.html
+        function showToast(title, message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            toast.innerHTML = `
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h4 class="font-semibold text-gray-900">${title}</h4>
+                        <p class="text-sm text-gray-600 mt-1">${message}</p>
+                    </div>
+                    <button onclick="removeToast(this)" class="text-gray-400 hover:text-gray-600 ml-4">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Show toast
+            setTimeout(() => toast.classList.add('show'), 100);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => removeToast(toast), 5000);
+        }
+
+        function removeToast(element) {
+            const toast = element.closest ? element.closest('.toast') : element;
+            if (toast) {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }
+        }
+
+        // Form submission with Fetch for Formspree from career.html
+        const form = document.getElementById('volunteerForm');
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Check if required checkboxes are checked
+            if (!data.privacyPolicy || !data.termsConditions) {
+                showToast(
+                    'Agreement Required',
+                    'Please accept both Privacy Policy and Terms & Conditions to continue.',
+                    'error'
+                );
+                return;
+            }
+
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalButtonHTML = submitButton.innerHTML;
+            
+            // Disable button and show loading state
+            submitButton.disabled = true;
+            submitButton.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Submitting...
+            `;
+
+            try {
+                const response = await fetch(this.action, {
+                    method: this.method,
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    showToast(
+                        'Application Submitted!',
+                        'Thank you for your interest in volunteering. We\'ll contact you soon.',
+                        'success'
+                    );
+                    this.reset();
+                } else {
+                    const responseData = await response.json();
+                    const errorMessage = responseData.errors?.map(error => error.message).join(', ') || 'An unknown error occurred.';
+                    showToast(
+                        'Submission Failed',
+                        `Oops! There was a problem: ${errorMessage}`,
+                        'error'
+                    );
+                }
+            } catch (error) {
+                showToast(
+                    'Network Error',
+                    'Could not submit the form. Please check your internet connection and try again.',
+                    'error'
+                );
+            } finally {
+                // Re-enable button and restore its original content
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonHTML;
+            }
+        });
+
+        // Form validation styling from career.html
+        const inputs = document.querySelectorAll('input[required], select[required], textarea[required]');
+        inputs.forEach(input => {
+            input.addEventListener('invalid', function() {
+                this.style.borderColor = 'hsl(0 84.2% 60.2%)';
+            });
+            
+            input.addEventListener('input', function() {
+                if (this.validity.valid) {
+                    this.style.borderColor = 'hsl(214.3 31.8% 91.4%)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
