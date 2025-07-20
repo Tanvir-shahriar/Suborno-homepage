@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile App Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: 'hsl(240 15% 10%)',
+                        foreground: 'hsl(210 40% 98%)',
+                        primary: 'hsl(265 89% 78%)',
+                        'primary-foreground': 'hsl(240 15% 10%)',
+                        muted: {
+                            DEFAULT: 'hsl(240 8% 18%)',
+                            foreground: 'hsl(215 20.2% 65.1%)'
+                        },
+                        device: {
+                            frame: 'hsl(240 6% 15%)',
+                            screen: 'hsl(0 0% 8%)',
+                            bezel: 'hsl(240 8% 22%)'
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-background': 'linear-gradient(135deg, hsl(240 15% 8%), hsl(240 15% 12%))',
+                        'gradient-primary': 'linear-gradient(135deg, hsl(265 89% 78% / 0.1), hsl(220 89% 78% / 0.05))'
+                    },
+                    boxShadow: {
+                        'device': '0 25px 50px -12px hsl(240 15% 5% / 0.8)',
+                        'glow': '0 0 80px hsl(265 89% 78% / 0.15)'
+                    },
+                    aspectRatio: {
+                        'phone': '9 / 19.5'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .bg-gradient-background {
+            background: linear-gradient(135deg, hsl(240 15% 8%), hsl(240 15% 12%));
+        }
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, hsl(265 89% 78% / 0.1), hsl(220 89% 78% / 0.05));
+        }
+        .bg-radial-pattern {
+            background-image: 
+                radial-gradient(circle at 25% 25%, hsl(265 89% 78% / 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, hsl(220 89% 78% / 0.1) 0%, transparent 50%);
+        }
+        .aspect-phone {
+            aspect-ratio: 9 / 19.5;
+        }
+        .shadow-device {
+            box-shadow: 0 25px 50px -12px hsl(240 15% 5% / 0.8);
+        }
+        .shadow-glow {
+            box-shadow: 0 0 80px hsl(265 89% 78% / 0.15);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-background relative overflow-hidden text-white">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 bg-gradient-primary"></div>
+    <div class="absolute inset-0 opacity-30 bg-radial-pattern"></div>
+    
+    <!-- Mobile: Full screen immersive mode -->
+    <div class="block md:hidden h-screen">
+        <!-- App Preview Content for Mobile -->
+        <div class="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center relative">
+            <iframe
+                src="about:blank"
+                title="Flutter App Preview"
+                class="w-full h-full border-0"
+                style="background: hsl(240 15% 10%);"
+                allow="accelerometer; autoplay; camera; gyroscope; magnetometer; microphone"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-downloads">
+            </iframe>
+            
+            <!-- Placeholder content when no src is provided -->
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-8" style="background: hsl(240 15% 10%);">
+                <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-4" style="background: hsl(265 89% 78% / 0.2);">
+                    <div class="w-8 h-8 rounded-lg" style="background: hsl(265 89% 78%);"></div>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">Flutter App Preview</h3>
+                <p class="text-sm max-w-xs" style="color: hsl(215 20.2% 65.1%);">
+                    Servicing undergoing 
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tablet & Desktop: Device frame mode -->
+    <div class="hidden md:flex items-center justify-center min-h-screen p-8">
+        <div class="w-full max-w-xs lg:max-w-xs xl:max-w-sm">
+            <!-- Device Frame -->
+            <div class="relative mx-auto">
+                <div class="relative rounded-[2.5rem] p-3 shadow-device shadow-glow" style="background: hsl(240 6% 15%);">
+                    <!-- Screen Bezel -->
+                    <div class="relative rounded-[2rem] p-1" style="background: hsl(240 8% 22%);">
+                        <!-- Screen -->
+                        <div class="relative rounded-[1.5rem] overflow-hidden" style="background: hsl(0 0% 8%);">
+                            <!-- Notch -->
+                            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-6 rounded-b-lg z-10" style="background: hsl(240 6% 15%);"></div>
+                            
+                            <!-- Speaker -->
+                            <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-12 h-1 rounded-full z-20" style="background: hsl(240 8% 22%);"></div>
+                            
+                            <!-- Camera -->
+                            <div class="absolute top-1.5 left-1/2 transform -translate-x-1/2 translate-x-8 w-2 h-2 rounded-full z-20" style="background: hsl(240 8% 22%);"></div>
+                            
+                            <!-- Content Area -->
+                            <div class="relative w-full h-full pt-8">
+                                <div class="aspect-phone w-full">
+                                    <!-- App Preview Content -->
+                                    <div class="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center relative">
+                                        <iframe
+                                            src="about:blank"
+                                            title="Flutter App Preview"
+                                            class="w-full h-full border-0"
+                                            style="background: hsl(240 15% 10%);"
+                                            allow="accelerometer; autoplay; camera; gyroscope; magnetometer; microphone"
+                                            sandbox="allow-scripts allow-same-origin allow-forms allow-downloads">
+                                        </iframe>
+                                        
+                                        <!-- Placeholder content when no src is provided -->
+                                        <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-8" style="background: hsl(240 15% 10%);">
+                                            <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-4" style="background: hsl(265 89% 78% / 0.2);">
+                                                <div class="w-8 h-8 rounded-lg" style="background: hsl(265 89% 78%);"></div>
+                                            </div>
+                                            <h3 class="text-lg font-semibold mb-2">Flutter App Preview</h3>
+                                            <p class="text-sm max-w-xs" style="color: hsl(215 20.2% 65.1%);">
+                                                Under Maintenance
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Home Indicator -->
+                    <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 rounded-full" style="background: hsl(240 8% 22%);"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Optional: Brand/Title for larger screens -->
+    <div class="hidden lg:block absolute top-8 left-8">
+        <h1 class="text-2xl font-bold" style="color: hsl(210 40% 98% / 0.8);">
+            App Preview
+        </h1>
+        <p class="text-sm mt-1" style="color: hsl(215 20.2% 65.1%);">
+            Flutter Web App Demo
+        </p>
+    </div>
+
+    <script>
+        // Optional: Function to update iframe src
+        function loadFlutterApp(url) {
+            const iframes = document.querySelectorAll('iframe[title="Flutter App Preview"]');
+            iframes.forEach(iframe => {
+                iframe.src = url;
+            });
+            
+            // Hide placeholder content
+            const placeholders = document.querySelectorAll('.absolute.inset-0.flex.flex-col');
+            placeholders.forEach(placeholder => {
+                if (url !== 'about:blank') {
+                    placeholder.style.display = 'none';
+                } else {
+                    placeholder.style.display = 'flex';
+                }
+            });
+        }
+
+        // Example usage:
+        // loadFlutterApp('https://your-flutter-app-url.com');
+    </script>
+</body>
+</html>
